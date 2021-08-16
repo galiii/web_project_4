@@ -6,13 +6,16 @@
   background-color: #000;
   border: 1px solid white;
   margin-top: 28px;
-  min-width: 320px;
+  max-width: 320px;
+  /*max-width: 540px;*/
+  /*width: 320px;*/
 }
 
 /* i will change it 880px */
-@media screen and (min-width: 1184px) {
+@media screen and (min-width: 880px) {
   .page__container {
     margin-top: 45px;
     border: 1px solid red;
+    /*max-width: 100%;*/
   }
 }

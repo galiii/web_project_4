@@ -1,0 +1,18 @@
+.page__container {
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif; /*,'Helvetica Neue', Arial, sans-serif;*/
+  min-height: 100vh;
+  /* figma request */
+  background-color: #000;
+  border: 1px solid white;
+  margin-top: 28px;
+  min-width: 320px;
+}
+
+/* i will change it 880px */
+@media screen and (min-width: 1184px) {
+  .page__container {
+    margin-top: 45px;
+    border: 1px solid red;
+  }
+}

@@ -9,21 +9,23 @@
   min-height: 361px;
 }
 
+/**** image **/
 .card__image {
   width: 100%;
   margin: 0 0 25px;
   object-fit: cover;
 }
 
-
+/*** row **/
 .card__row {
   margin-left: 21px;
   margin-right: 18px;
   display: flex;
   justify-content: space-between;/*space-around;*/
-
 }
 
+
+/*** title ***/
 .card__title {
   margin: 0;
   text-overflow: ellipsis;

@@ -2,7 +2,32 @@
   /*max-width: 320px;*/
   width: 100%;
   border-bottom: 1px solid #545454;
-  margin-bottom: 42px; /*for 320px*/
+  margin: 0 0 36px; /*for 320px*/
   /*opacity: 0.7;*/
 
 }
+
+
+/* i will change it 880px */
+@media screen and (max-width: 320px) {
+  .header {
+    margin-bottom: 38px;
+  }
+}
+
+
+.header__logo {
+  width: 173px;
+  margin: 0 0 41px;
+}
+
+
+/* i will change it 880px */
+@media screen and (max-width: 320px) {
+  .header__logo {
+    width: 126px;
+    margin-left: 27px;
+    margin-bottom: 32px;
+  }
+}
+

@@ -1,0 +1,30 @@
+.card {
+  overflow: hidden;
+  background-color: #fff;
+  border: 1px solid green;
+  border-radius: 10px;
+  max-width: 282px;
+  color: #000;
+  margin: 0 auto;
+}
+
+.card__image {
+  width: 100%;
+  margin: 0 0 35px;
+  object-fit: cover;
+}
+
+.card__title {
+  margin: 0;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.card__like {
+  background-image: url(../../images/logos/love.svg);
+  width: 21px;
+  height: 21px;
+  background-repeat: no-repeat;
+}
+

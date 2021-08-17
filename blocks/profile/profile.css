@@ -9,7 +9,7 @@
 }
 
 /* i will change it 880px */
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 540px) {
   .profile  {
     flex-direction: column;
     max-width: 282px;
@@ -31,7 +31,7 @@
 
 
 /* i will change it 880px */
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 540px) {
   .profile__image {
     width: 120px;
     margin: 0 0 26px; /*0 26px;*/
@@ -45,7 +45,7 @@
 }
 
 /* i will change it 880px */
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 540px) {
   .profile__section-information {
     margin: 0;
     margin: 0 0 36px;
@@ -66,7 +66,7 @@
 }
 
 /* i will change it 880px */
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 540px) {
   .profile__row {
     /*max-width: 224px;*/
     min-width: 224px;
@@ -89,7 +89,7 @@
   line-height: 48px;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 540px) {
   .profile__name  {
     max-width: 196px;
     font-size: 22px;
@@ -105,7 +105,7 @@
 }
 
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 540px) {
 .profile__about {
   font-size: 14px;
   line-height: 17px;
@@ -126,7 +126,7 @@
 }
 
 /* i will change it 880px */
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 540px) {
   .profile__edit-button {
     margin: 0;
     width: 18px;
@@ -149,7 +149,7 @@
 }
 
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 540px) {
   .profile__button-add {
     width: 282px;
   }

@@ -1,6 +1,14 @@
 .cards {
-  margin: 0 auto 50px;
+  margin: 0 auto 68px;
 }
+
+/* i will change it 880px */
+@media screen and (max-width: 320px) {
+  .cards {
+    margin-bottom: 50px;
+  }
+}
+
 
 .cards__list {
   padding: 0;
@@ -8,5 +16,14 @@
   list-style: none;
   display: grid;
   grid-template-columns: repeat( auto-fit, minmax(282px, 1fr));
-  gap: 20px;
+  gap: 20px 17px;
+}
+
+
+
+/* i will change it 880px */
+@media screen and (max-width: 320px) {
+  .cards__list {
+    row-gap: 20px;
+  }
 }

@@ -1,7 +1,7 @@
 .card {
   overflow: hidden;
   background-color: #fff;
-  border: 1px solid green;
+  /*border: 1px solid green;*/
   border-radius: 10px;
   max-width: 282px;
   color: #000;
@@ -45,6 +45,5 @@
   width: 21px;
   height: 19px;
   align-self: center;
-
 }
 

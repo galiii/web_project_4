@@ -26,4 +26,10 @@
 @import url(../blocks/card/card.css);
 
 /** Footer **/
-@import url(../blocks/footer/footer.css)
+@import url(../blocks/footer/footer.css);
+
+/** Popup **/
+@import url(../blocks/popup/popup.css);
+
+/** Form **/
+@import url(../blocks/form/form.css);

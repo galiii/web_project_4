@@ -58,7 +58,7 @@
 .profile__row {
   /*border: 1px solid red;*/
   display: flex;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
   align-items: center;
   /*max-width: 224px;*/
   /*min-width: 224px;*/
@@ -77,7 +77,7 @@
 
 /** name **/
 .profile__name {
-  /*max-width: 373px;*/
+  max-width: 300px;
   /*border: 1px solid teal;*/
   text-overflow: ellipsis;
   white-space: nowrap;

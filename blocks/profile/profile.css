@@ -145,9 +145,13 @@
   background-position: center;
   width: 150px;
   height: 50px;
-
 }
 
+.profile__button-add:hover {
+  cursor: pointer;
+  /*background-image: url(../../images/logos/add-plus.svg);*/
+  opacity: 0.6;
+}
 
 @media screen and (max-width: 540px) {
   .profile__button-add {

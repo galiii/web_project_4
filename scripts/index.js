@@ -19,16 +19,16 @@ let userJobElement =  document.querySelector('.profile__about');
 
 
 function toggleEditor() {
-  let isContainOpen = popup.classList.contains('popup__open');
+  let isContainOpen = popup.classList.contains('popup_open');
 
   if(!isContainOpen) {
-    console.log("hello");
-     popup.classList.add('popup__open');
+     console.log("hello");
+     popup.classList.add('popup_open');
      inputNameElement.value = userNameElement.textContent;
      inputJobElement.value = userJobElement.textContent;
   }
   else {
-    popup.classList.remove('popup__open');
+    popup.classList.remove('popup_open');
   }
 }
 
@@ -42,9 +42,6 @@ function handleFormSubmit(evt) {
 
 
 editButton.addEventListener('click', toggleEditor);
-
 closeButton.addEventListener('click', toggleEditor);
-
-
 formElement.addEventListener('submit', handleFormSubmit);
 

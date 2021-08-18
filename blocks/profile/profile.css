@@ -1,14 +1,17 @@
 .profile {
  color: #fff;
  display: flex;
- justify-content: space-between;
+ /*justify-content: space-between;*/
+
  align-items: center;
  /*border: 1px solid gainsboro;*/
  max-width: 880px;
+ width: 100%;
  margin: 0 0 46px;
 }
 
-/* i will change it 880px */
+
+
 @media screen and (max-width: 540px) {
   .profile  {
     flex-direction: column;
@@ -18,36 +21,14 @@
 }
 
 
-/**********/
-/*** IMAGE ****/
-.profile__image {
-  width: 168px;
-  object-fit: contain;
-  background-size: 50% 50%;
-  background-repeat: no-repeat;
-  /*border: 1px solid white;*/
-  border-radius: 100%;
-}
-
-
-/* i will change it 880px */
-@media screen and (max-width: 540px) {
-  .profile__image {
-    width: 120px;
-    margin: 0 0 26px; /*0 26px;*/
-  }
-}
 
 .profile__section-information {
-  margin: 0 135px 0 4px;
-  /*max-width: 415px;*/
+  margin: 0 120px 0 0;
 
 }
 
-/* i will change it 880px */
 @media screen and (max-width: 540px) {
   .profile__section-information {
-    margin: 0;
     margin: 0 0 36px;
     max-width: 282px;
     text-align: center;
@@ -58,26 +39,22 @@
 .profile__row {
   /*border: 1px solid red;*/
   display: flex;
-  justify-content: space-between;
+  /*justify-content: space-between;*/
   align-items: center;
-  /*max-width: 224px;*/
-  /*min-width: 224px;*/
-  margin: 0 0 14px;
+  margin: 0 0 16px;
 }
 
 /* i will change it 880px */
 @media screen and (max-width: 540px) {
   .profile__row {
-    /*max-width: 224px;*/
-    min-width: 224px;
-    margin: 0 0 14px;
+    margin-bottom: 14px;
   }
 }
 
 
 /** name **/
 .profile__name {
-  /*max-width: 373px;*/
+  max-width: 373px;
   /*border: 1px solid teal;*/
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -94,6 +71,7 @@
     max-width: 196px;
     font-size: 22px;
     line-height: 27px;
+    margin-right: 10px;
   }
 }
 
@@ -112,50 +90,5 @@
   }
 }
 
-.profile__edit-button {
-  margin: 5px 0 0 25px;
-  box-sizing: border-box;
-  background-image: url(../../images/logos/pencil-edit.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  padding: 0 ;
-  width: 24px;
-  height: 24px;
-  background-color: #000;
-  border: 1px solid #fff;
-}
 
-/* i will change it 880px */
-@media screen and (max-width: 540px) {
-  .profile__edit-button {
-    margin: 0;
-    width: 18px;
-    height: 18px;
-  }
-}
-
-.profile__button-add {
-  padding: 0;
-  box-sizing: border-box;
-  background-color: #000;
-  border: 2px solid #fff;
-  border-radius: 2px;
-  background-image: url(../../images/logos/add-plus.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 150px;
-  height: 50px;
-}
-
-.profile__button-add:hover {
-  cursor: pointer;
-  /*background-image: url(../../images/logos/add-plus.svg);*/
-  opacity: 0.6;
-}
-
-@media screen and (max-width: 540px) {
-  .profile__button-add {
-    width: 282px;
-  }
-}
 

@@ -18,6 +18,21 @@ let userNameElement = document.querySelector('.profile__name');
 let userJobElement =  document.querySelector('.profile__job');
 
 
+function closePopupEditor() {
+  //console.log('close function');
+  popup.classList.remove('popup_open');
+}
+
+
+function openPopupEditor() {
+  //console.log('open function');
+  popup.classList.add('popup_open');
+  inputNameElement.value = userNameElement.textContent;
+  inputJobElement.value = userJobElement.textContent;
+}
+
+
+
 /**
  * This function behave like a toggle funtion that belong to classList
  **/
@@ -26,12 +41,10 @@ function toggleEditor() {
 The logic if it's false, It's mean that the popup window isn't open yet so,
 we need to add the class and put the the right properties */
   if(!popup.classList.contains('popup_open')) {
-     popup.classList.add('popup_open');
-     inputNameElement.value = userNameElement.textContent;
-     inputJobElement.value = userJobElement.textContent;
+     openPopupEditor();
   }
   else {
-    popup.classList.remove('popup_open');
+    closePopupEditor();
   }
 }
 

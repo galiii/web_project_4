@@ -1,11 +1,12 @@
 .form {
-  margin: 0;
+  margin: 54px 36px 36px;;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  /*max-width: 358px;*/
-  max-width: 100%;
+  max-width: 358px;
+  width: 100%;
+  /*border: 1px solid red;*/
 }
 
 

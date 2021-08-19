@@ -1,5 +1,5 @@
 .profile__image {
-  width: 169px;
+  width: 120px;
   /*height: 127px;*/
   object-fit: contain;
   /*background-size: 50% 50%;*/
@@ -12,7 +12,6 @@
 
 @media screen and (max-width: 540px) {
   .profile__image {
-    width: 120px;
     margin: 0 0 26px;
   }
 }

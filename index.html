@@ -10,20 +10,19 @@
 <body class="page">
   <div class="page__container">
     <header class="header">
-      <img src="./images/logos/around.svg" alt="Around the US Logo" class="header__logo">
+      <div class="header__logo"></div>
     </header>
-
     <main class="content">
       <section class="profile">
-        <img src="./images/profile.jpg" alt="" class="profile__image">
+        <img src="./images/profile.jpg" alt="A profile image" class="profile__image">
         <div class="profile__section-information">
-          <div class="profile__row">
+          <div class="profile__row-information">
             <h2 class="profile__name">Jacques Cousteau</h2>
             <button class="profile__edit-button"></button>
           </div>
-          <p class="profile__about">Explorer</p>
+          <p class="profile__job">Explorer</p>
         </div>
-        <button class="button profile__button-add"></button>
+        <button class="button profile__add-button"></button>
       </section><!-- end Profile -->
 
       <section class="cards">
@@ -107,8 +106,8 @@
             >
             <input type="text"
             class="form__input form__input_type_job"
-            placeholder="profession"
-            name="profession"
+            placeholder="job"
+            name="job"
             >
           <button type="submit" class="form__button">Save</button>
         </form>

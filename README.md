@@ -1,16 +1,39 @@
 # Project 4: Around The U.S.
 
-### Overview
 
-* Figma
-* Images
+**Description of technologies used**
+1. HTML5
+2. CSS3
+3. JavaScript
 
-**Figma**
+<br>
+<br>
 
-* [Link to the project in Figma](https://www.figma.com/file/SurN1jaeEQIhuZEDMhmWWf/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
+```javascript
+/**
+ * This function behave like a toggle funtion that belong to
+ * classList
+ **/
+function toggleEditor() {
+  let isContainOpen = popup.classList.contains('popup_open'); /* A ver that with him, I check if I will remove the the class or add */
 
-**Images**
+/*
+The logic if it's false, It's mean that the popup window isn't open yet so, we need to add the class and put the the right properties */
+  if(!isContainOpen) {
+     console.log("hello");
+     popup.classList.add('popup_open');
+     inputNameElement.value = userNameElement.textContent;
+     inputJobElement.value = userJobElement.textContent;
+  }
+  else {
+    popup.classList.remove('popup_open');
+  }
+}
 
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
+```
 
-Have fun with JavaScript!
+<br>
+<br>
+**URL to My Website**
+
+[Around The U.S.](https://galiii.github.io/web_project_4/)

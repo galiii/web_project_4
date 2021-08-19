@@ -15,12 +15,19 @@ let inputJobElement = formElement.querySelector('.form__input_type_job');
 
 
 let userNameElement = document.querySelector('.profile__name');
-let userJobElement =  document.querySelector('.profile__about');
+let userJobElement =  document.querySelector('.profile__job');
 
 
+/**
+ * This function behave like a toggle funtion that belong to classList
+ **/
 function toggleEditor() {
+  /* A ver that with him, I check if I will remove the the class or add */
   let isContainOpen = popup.classList.contains('popup_open');
 
+  /*
+The logic if it's false, It's mean that the popup window isn't open yet so,
+we need to add the class and put the the right properties */
   if(!isContainOpen) {
      console.log("hello");
      popup.classList.add('popup_open');

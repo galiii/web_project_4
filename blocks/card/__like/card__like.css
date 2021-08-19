@@ -1,4 +1,7 @@
 .card__like {
+  border: none;
+  background-color: #fff;
+  padding: 0;
   background-image: url(../../../images/logos/love.svg);
   background-repeat: no-repeat;
   background-position: center center;
@@ -8,3 +11,6 @@
   align-self: center;
 }
 
+.card__like:hover {
+  cursor: pointer;
+}

@@ -29,7 +29,6 @@ function toggleEditor() {
 The logic if it's false, It's mean that the popup window isn't open yet so,
 we need to add the class and put the the right properties */
   if(!isContainOpen) {
-     console.log("hello");
      popup.classList.add('popup_open');
      inputNameElement.value = userNameElement.textContent;
      inputJobElement.value = userJobElement.textContent;

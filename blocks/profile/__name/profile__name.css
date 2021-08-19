@@ -1,4 +1,7 @@
 .profile__name {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   max-width: 373px;
   /*border: 1px solid teal;*/
   margin: 0;

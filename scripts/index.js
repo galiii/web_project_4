@@ -37,9 +37,10 @@ function openPopupEditor() {
  * This function behave like a toggle funtion that belong to classList
  **/
 function toggleEditor() {
-/*
-The logic if it's false, It's mean that the popup window isn't open yet so,
-we need to add the class and put the the right properties */
+  //console.log('in toggle function');
+  /*
+  The logic if it's false, It's mean that the popup window isn't open yet so,
+  we need to add the class and put the the right properties */
   if(!popup.classList.contains('popup_open')) {
      openPopupEditor();
   }
@@ -53,10 +54,15 @@ function handleFormSubmit(evt) {
   evt.preventDefault();
   userNameElement.textContent = inputNameElement.value;
   userJobElement.textContent =  inputJobElement.value;
+  //console.log('in handleFormSubmit');
+  //Everything completed we can close the window
+  //closePopupEditor();
+
+  // i'm still using this function because only in the click event you told me it's redundant
   toggleEditor();
   }
 
-editButton.addEventListener('click', toggleEditor);
-closeButton.addEventListener('click', toggleEditor);
+editButton.addEventListener('click', openPopupEditor);
+closeButton.addEventListener('click', closePopupEditor);
 formElement.addEventListener('submit', handleFormSubmit);
 

@@ -31,78 +31,7 @@
 
       <section class="cards">
         <ul class="cards__list">
-          <li class="card">
-            <img src="./images/view/yosemite-valley.jpg"
-            alt="Yosemite Valley"
-            class="card__image"
-            >
-            <div class="card__row">
-              <h2 class="card__title">Yosemite Valley</h2>
-              <button type ="button"
-              aria-label="Like"
-              class="card__like"></button>
-            </div>
-          </li> <!-- end Yosemite Valley -->
-          <li class="card">
-            <img src="./images/view/lake-louise.jpg"
-            alt="Lake Louise"
-            class="card__image"
-            >
-            <div class="card__row">
-              <h2 class="card__title">Lake Louise</h2>
-              <button type="button"
-              aria-label="Like"
-              class="card__like"></button>
-            </div>
-          </li> <!-- end Lake Louise -->
-          <li class="card">
-            <img src="./images/view/bald-mountains.jpg"
-            alt="Lake Louise"
-            class="card__image"
-            >
-            <div class="card__row">
-              <h2 class="card__title">Bald Mountains</h2>
-              <button type ="button"
-              aria-label="Like"
-              class="card__like"></button>
-            </div>
-          </li> <!-- end Bald Mountains -->
-          <li class="card">
-            <img src="./images/view/latemar.jpg"
-            alt="Latemar"
-            class="card__image"
-            >
-             <div class="card__row">
-              <h2 class="card__title">Latemar</h2>
-              <button type="button"
-              aria-label="Like"
-              class="card__like"></button>
-            </div>
-          </li> <!-- end Latemar -->
-          <li class="card">
-            <img src="./images/view/vanoise.jpg"
-            alt="Vanoise National Park"
-            class="card__image"
-            >
-            <div class="card__row">
-              <h2 class="card__title">Vanoise National Park</h2>
-              <button type="button"
-              aria-label="Like"
-              class="card__like"></button>
-            </div>
-          </li> <!-- end Vanoise National Park -->
-          <li class="card">
-            <img src="./images/view/lago-di.jpg"
-            alt="Lago di Braies"
-            class="card__image"
-            >
-            <div class="card__row">
-              <h2 class="card__title">Lago di Braiese</h2>
-              <button type="button"
-              aria-label="Like"
-              class="card__like"></button>
-            </div>
-          </li> <!-- end Lago di Braiese -->
+          <!--in JS rander()-->
         </ul> <!-- end  cards__list -->
       </section> <!-- end Cards -->
     </main> <!-- end Content -->
@@ -134,6 +63,22 @@
       </div>
     </div><!--end of Popup-->
   </div><!--End of Page container-->
+
+  <!-- We're using a <li> because we expect to have multiple cards -->
+<template id="card-template">
+  <li class="card">
+    <img class="card__image">
+    <button type="button"
+    aria-label="Delete"
+    class="card__delete"></button>
+    <div class="card__row">
+        <h2 class="card__title">Yosemite Valley</h2>
+        <button type ="button"
+        aria-label="Like"
+        class="card__like"></button>
+    </div>
+  </li>
+</template>
   <script src="./scripts/index.js"></script>
 </body><!--End of Page-->
 </html>

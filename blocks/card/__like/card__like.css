@@ -11,7 +11,14 @@
   align-self: center;
 }
 
+
 .card__like:hover {
   cursor: pointer;
   opacity: .5;
+}
+
+
+.card__like_active {
+  opacity: 1;
+  background: url(../../../images/logos/black-like.svg) center no-repeat;
 }

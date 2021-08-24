@@ -1,7 +1,10 @@
-.card__image {
-  width: 100%;
-  /*max-width: 282px;*/
-  margin: 0 0 25px;
-  /*object-fit: contain;
-  object-position: top;*/
+  .card__image {
+    width: 100%;
+    /*max-width: 282px;*/
+    margin: 0 0 25px;
+    object-position: cover;
+    object-position: top;
+    /*min-height: 282px;
+    max-height: 282px;*/
+    height: 282px;
 }

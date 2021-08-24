@@ -56,7 +56,15 @@ function createCard(card) {
   const imageCardElement = cardElement.querySelector('.card__image');
   imageCardElement.src = `${card.link}`;
   imageCardElement.alt = card.name;
-  console.dir(imageCardElement);
+  //console.dir(imageCardElement);
+
+  //delete
+  const deleteButtonElement = cardElement.querySelector('.card__delete');
+  deleteButtonElement.addEventListener("click", function(){
+    //console.dir(evt);
+    const listItem = deleteButtonElement.closest(".card");
+    listItem.remove();
+  });
 
   //for h2
   const cardTitleElement = cardElement.querySelector('.card__title');

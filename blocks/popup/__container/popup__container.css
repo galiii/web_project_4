@@ -8,6 +8,10 @@
   padding: 0/*34px 36px 36px;*/
 }
 
+.figure-container {
+ background: transparent;
+ /*max-width: auto;*/
+}
 
 @media screen and (max-width: 540px) {
   .popup__container {

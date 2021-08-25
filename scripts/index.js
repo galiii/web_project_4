@@ -54,14 +54,19 @@ const cardTitleInput = addCardModel.querySelector('.form__input_type_card-title'
 const cardLinkInput = addCardModel.querySelector('.form__input_type_card-link');
 
 
-let userNameElement = document.querySelector('.profile__name');
-let userJobElement =  document.querySelector('.profile__job');
+const userNameElement = document.querySelector('.profile__name');
+const userJobElement =  document.querySelector('.profile__job');
 
 
 
 function generateCard(cardData) {
   const listItem = templateListItem.cloneNode(true);
   const image = listItem.querySelector('.card__image');
+  const figureModel = document.querySelector('.popup_type_image');
+
+  const figureCloseButton = figureModel.querySelector('.popup__close-button');
+   console.dir(figureCloseButton);
+
   const deleteButton = listItem.querySelector('.card__delete');
   const title = listItem.querySelector('.card__title');
   const like = listItem.querySelector('.card__like');
@@ -73,22 +78,39 @@ function generateCard(cardData) {
   title.textContent = cardData.name;
 
   /** Delete Property click Event **/
-  deleteButton.addEventListener("click", function(){
+  deleteButton.addEventListener('click', function(){
     const lI = deleteButton.closest(".card");
     lI.remove();
   });
   /** Like Property click Event **/
-  like.addEventListener("click", function(evt){
+  like.addEventListener('click', function(evt){
     console.log(evt.target);
     evt.target.classList.toggle("card__like_active");
   });
+  /** Image Property click Event **/
+  image.addEventListener('click', function(evt){
+    console.log(evt.target);
+    const img = figureModel.querySelector('.popup__image');
+    const caption = figureModel.querySelector('.popup__caption');
+
+    img.src = cardData.link;
+    console.dir(caption);
+    caption.ariaLabel = cardData.name;
+    caption.textContent = cardData.name;
+    figureModel.classList.add('popup_open');
+    //evt.target.classList.toggle("card__like_active");
+  });
+
+  figureCloseButton.addEventListener('click', function() {
+    figureModel.classList.remove('popup_open');
+  });
+
+
   console.dir(listItem);
   list.append(listItem);
 }
 
 initialCards.forEach(generateCard);
-
-
 
 
 function closePopup(model) {
@@ -98,8 +120,6 @@ function closePopup(model) {
 
 function openPopup(model) {
   model.classList.add('popup_open');
-  /*profileNameInput.value = userNameElement.textContent;
-  profileJobInput.value = userJobElement.textContent;*/
 }
 
 
@@ -120,11 +140,13 @@ function editProfileFormSubmit(evt) {
 
   function addCardFormSubmit(evt) {
     evt.preventDefault();
-    console.log("hello", cardTitleInput.value ,cardLinkInput.value);
     generateCard({name: cardTitleInput.value, link:  cardLinkInput.value});
     toggleModel(addCardModel);
     console.dir(addCardForm);
+    //reset the values (clean)
     addCardForm.reset();
+    cardTitleInput.value = "";
+    cardLinkInput.value ="";
     }
 
 
@@ -137,7 +159,6 @@ editProfileButton.addEventListener('click', ()=> {
 });
 
 
-/** open  **/
 addCardButton.addEventListener('click', () => {
   toggleModel(addCardModel);
 });

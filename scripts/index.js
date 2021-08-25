@@ -25,24 +25,33 @@ const initialCards = [
   }
 ];
 
-//Let's find  the cards list in the dom
-const carsdsList = document.querySelector('.cards__list');
-const cardTemplate = document.querySelector('#card-template').content;
+//Open Buttons
+const editProfileButton = document.querySelector('.profile__edit-button');
+const addCardButton = document.querySelector('.profile__add-button'); //change the ben to card
 
 
-//Let's find  the editButton in the dom
-let editButton = document.querySelector('.profile__edit-button');
+//Card
+const list = document.querySelector('.cards__list');
+const templateListItem = document.querySelector('#card-template').content.querySelector('.card');
 
-let popup = document.querySelector('.popup');
-let closeButton = popup.querySelector('.popup__close-button');
+//Models
+const editProfileModel = document.querySelector('.popup_type_edit-profile');
+const addCardModel = document.querySelector('.popup_type_add-card');
 
-// Let's find the form in the DOM
-let formElement = document.querySelector('.form');
+//Close buttons
+const editModelCloseButton = editProfileModel.querySelector('.popup__close-button');
+const addCardModelCloseButton = addCardModel.querySelector('.popup__close-button');
 
-//formElement contain .form__input_type_name (the parent)
-let inputNameElement = formElement.querySelector('.form__input_type_name');
-//formElement contain .form__input_type_job (the parent)
-let inputJobElement = formElement.querySelector('.form__input_type_job');
+
+//Form
+const editProfileForm = editProfileModel.querySelector('.form');
+const addCardForm = addCardModel.querySelector('.form');
+
+//input
+const profileNameInput = editProfileModel.querySelector('.form__input_type_name');
+const profileJobInput = editProfileModel.querySelector('.form__input_type_job');
+const cardTitleInput = addCardModel.querySelector('.form__input_type_card-title');
+const cardLinkInput = addCardModel.querySelector('.form__input_type_card-link');
 
 
 let userNameElement = document.querySelector('.profile__name');
@@ -50,99 +59,100 @@ let userJobElement =  document.querySelector('.profile__job');
 
 
 
-function createCard(card) {
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  //image
-  const imageCardElement = cardElement.querySelector('.card__image');
-  imageCardElement.src = `${card.link}`;
-  imageCardElement.alt = card.name;
-  //console.dir(imageCardElement);
+function generateCard(cardData) {
+  const listItem = templateListItem.cloneNode(true);
+  const image = listItem.querySelector('.card__image');
+  const deleteButton = listItem.querySelector('.card__delete');
+  const title = listItem.querySelector('.card__title');
+  const like = listItem.querySelector('.card__like');
 
-  //delete
-  const deleteButtonElement = cardElement.querySelector('.card__delete');
-  deleteButtonElement.addEventListener("click", function(){
-    //console.dir(evt);
-    const listItem = deleteButtonElement.closest(".card");
-    listItem.remove();
+  /** Image Property setup **/
+  image.src = cardData.link;
+  image.alt = cardData.name;
+  /** Title Property setup **/
+  title.textContent = cardData.name;
+
+  /** Delete Property click Event **/
+  deleteButton.addEventListener("click", function(){
+    const lI = deleteButton.closest(".card");
+    lI.remove();
   });
-
-  //for h2
-  const cardTitleElement = cardElement.querySelector('.card__title');
-  cardTitleElement.textContent = card.name;
-  //console.log(card);
-
-  //like
-  const likeButtonElement = cardElement.querySelector('.card__like');
-  likeButtonElement.addEventListener("click", function(evt){
+  /** Like Property click Event **/
+  like.addEventListener("click", function(evt){
     console.log(evt.target);
     evt.target.classList.toggle("card__like_active");
   });
-
-
-  return cardElement;
+  console.dir(listItem);
+  list.append(listItem);
 }
 
-initialCards.forEach((card, index) => {
-  console.log(index);
-  const cardElement = createCard(card);
+initialCards.forEach(generateCard);
 
-  if(cardElement === null || cardElement === undefined) {
-    console.log('Somthing went worng');
+
+
+
+function closePopup(model) {
+  model.classList.remove('popup_open');
+}
+
+
+function openPopup(model) {
+  model.classList.add('popup_open');
+  /*profileNameInput.value = userNameElement.textContent;
+  profileJobInput.value = userJobElement.textContent;*/
+}
+
+
+function toggleModel(model) {
+  !model.classList.contains('popup_open') ? openPopup(model) : closePopup(model);
+}
+
+
+function editProfileFormSubmit(evt) {
+  evt.preventDefault();
+  userNameElement.textContent = profileNameInput.value;
+  userJobElement.textContent =  profileJobInput.value;
+
+  // i'm still using this function because only in the click event you told me it's redundant
+  toggleModel(editProfileModel);
   }
-  carsdsList.prepend(cardElement);
+
+
+  function addCardFormSubmit(evt) {
+    evt.preventDefault();
+    console.log("hello", cardTitleInput.value ,cardLinkInput.value);
+    generateCard({name: cardTitleInput.value, link:  cardLinkInput.value});
+    toggleModel(addCardModel);
+    console.dir(addCardForm);
+    addCardForm.reset();
+    }
+
+
+
+/** open  **/
+editProfileButton.addEventListener('click', ()=> {
+  toggleModel(editProfileModel);
+  profileNameInput.value = userNameElement.textContent;
+  profileJobInput.value = userJobElement.textContent;
 });
 
 
+/** open  **/
+addCardButton.addEventListener('click', () => {
+  toggleModel(addCardModel);
+});
 
 
-function closePopupEditor() {
-  //console.log('close function');
-  popup.classList.remove('popup_open');
-}
+/** close  **/
+editModelCloseButton.addEventListener('click', () => {
+  toggleModel(editProfileModel);
+});
 
+/** close  **/
+addCardModelCloseButton.addEventListener('click', () => {
+  toggleModel(addCardModel);
+});
 
-function openPopupEditor() {
-  //console.log('open function');
-  popup.classList.add('popup_open');
-  inputNameElement.value = userNameElement.textContent;
-  inputJobElement.value = userJobElement.textContent;
-}
+editProfileForm.addEventListener('submit', editProfileFormSubmit);
 
-
-
-/**
- * This function behave like a toggle funtion that belong to classList
- **/
-function toggleEditor() {
-  //console.log('in toggle function');
-  /*
-  The logic if it's false, It's mean that the popup window isn't open yet so,
-  we need to add the class and put the the right properties */
-  if(!popup.classList.contains('popup_open')) {
-     openPopupEditor();
-  }
-  else {
-    closePopupEditor();
-  }
-}
-
-
-function handleFormSubmit(evt) {
-  evt.preventDefault();
-  userNameElement.textContent = inputNameElement.value;
-  userJobElement.textContent =  inputJobElement.value;
-  //console.log('in handleFormSubmit');
-  //Everything completed we can close the window
-  //closePopupEditor();
-
-  // i'm still using this function because only in the click event you told me it's redundant
-  toggleEditor();
-  }
-
-
-
-
-editButton.addEventListener('click', openPopupEditor);
-closeButton.addEventListener('click', closePopupEditor);
-formElement.addEventListener('submit', handleFormSubmit);
-
+addCardForm.addEventListener('submit', addCardFormSubmit);

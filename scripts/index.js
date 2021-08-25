@@ -148,11 +148,10 @@ editModelCloseButton.addEventListener('click', () => {
   toggleModel(editProfileModel);
 });
 
-/** close  **/
 addCardModelCloseButton.addEventListener('click', () => {
   toggleModel(addCardModel);
 });
 
-editProfileForm.addEventListener('submit', editProfileFormSubmit);
 
+editProfileForm.addEventListener('submit', editProfileFormSubmit);
 addCardForm.addEventListener('submit', addCardFormSubmit);

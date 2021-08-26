@@ -1,19 +1,17 @@
 .form {
-  margin: 54px 36px 36px;
+  margin: 54px 22px 36px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  max-width: 358px;
+  /* max-width: 358px; */
   width: 100%;
-  /*border: 1px solid red;*/
+  align-self: center;
 }
 
 @media screen and (max-width: 540px) {
   .form {
     margin: 76px 22px 25px;
-    max-width: 238px;
+    /*max-width: 238px;*/
   }
 }
-
-

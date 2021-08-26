@@ -74,12 +74,6 @@ const openPopup = (model) => {
   model.classList.add("popup_open");
 };
 
-const toggleModel = (model) => {
-  !model.classList.contains("popup_open")
-    ? openPopup(model)
-    : closePopup(model);
-};
-
 const generateCard = (cardData) => {
   const listItem = cardTemplate.cloneNode(true);
   // Items
@@ -116,13 +110,12 @@ const generateCard = (cardData) => {
     //Figcaption properties
     caption.ariaLabel = cardData.name;
     caption.textContent = cardData.name;
-    toggleModel(figureModel);
+    openPopup(figureModel);
   });
 
   figureCloseButton.addEventListener("click", () => {
-    //console.log("hello");
-    //toggleModel(figureModel);
-    figureModel.classList.remove("popup_open");
+    closePopup(figureModel);
+    //figureModel.classList.remove("popup_open");
   });
   list.append(listItem);
 };
@@ -134,7 +127,7 @@ initialCards.forEach(generateCard);
 const addCardFormSubmit = (evt) => {
   evt.preventDefault();
   generateCard({ name: cardTitleInput.value, link: cardLinkInput.value });
-  toggleModel(addCardModel);
+  closePopup(addCardModel);
   //reset the values (clean)
   addCardForm.reset();
 };
@@ -143,28 +136,28 @@ const editProfileFormSubmit = (evt) => {
   evt.preventDefault();
   userNameElement.textContent = profileNameInput.value;
   userJobElement.textContent = profileJobInput.value;
-  toggleModel(editProfileModel);
+  closePopup(editProfileModel);
 };
 
 /** Events **/
 /** Open  **/
 editProfileButton.addEventListener("click", () => {
-  toggleModel(editProfileModel);
+  openPopup(editProfileModel);
   profileNameInput.value = userNameElement.textContent;
   profileJobInput.value = userJobElement.textContent;
 });
 
 addCardButton.addEventListener("click", () => {
-  toggleModel(addCardModel);
+  openPopup(addCardModel);
 });
 
 /** Close  **/
 editModelCloseButton.addEventListener("click", () => {
-  toggleModel(editProfileModel);
+  closePopup(editProfileModel);
 });
 
 addCardModelCloseButton.addEventListener("click", () => {
-  toggleModel(addCardModel);
+  closePopup(addCardModel);
 });
 
 /** Submit **/

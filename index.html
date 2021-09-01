@@ -62,13 +62,14 @@
               <input
                 type="text"
                 name="name"
+                id="name-input"
                 class="form__input form__input_type_name"
                 placeholder="name"
                 required
                 minlength="2"
                 maxlength="40"
               />
-              <span>Please fill out this field.</span>
+              <span id="name-input-error"></span>
             </label>
             <label class="form__field">
               <input
@@ -86,7 +87,7 @@
             <button
               type="submit"
               aria-label="Submit"
-              class="form__button form__button_inactive"
+              class="form__button"
             >
               Save
             </button>
@@ -107,19 +108,23 @@
             <input
               type="text"
               name="card-title"
+              id="card-title-input"
               class="form__input form__input_type_card-title"
               placeholder="Title"
               required
               minlength="1"
               maxlength="30"
             />
+            <span id="card-title-input-error"></span>
             <input
               type="url"
               name="card-link"
+              id= "card-link-input"
               class="form__input form__input_type_card-link"
               placeholder="Image link"
               required
             />
+            <span id="card-link-input-error"></span>
             <button
               type="submit"
               aria-label="Submit"

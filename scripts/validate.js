@@ -1,3 +1,5 @@
+let counter = 0;
+/* Show error => default browser message for input */
 const showError = (input) => {
   const errorMessage = input.validationMessage;
   errorElement = document.querySelector(`#${input.id}-error`);
@@ -7,58 +9,78 @@ const showError = (input) => {
 };
 
 const hideError = (input) => {
-  console.log("valid");
   errorElement = document.querySelector(`#${input.id}-error`);
   errorElement.classList.remove("form__input-error_active");
   errorElement.textContent = "";
   input.classList.remove("form__input_error");
 };
 
+/* Check is inputs is valid */
 const checkValidity = (input) => {
   if (!input.validity.valid) {
-    console.log("show Error");
     showError(input);
   } else {
     hideError(input);
   }
 };
 
-// enabling validation by calling enableValidation()
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    console.dir(inputElement);
+    return !inputElement.validity.valid;
+  });
+};
+
+const toggleButtonState = (inputs, buttonElement) => {
+  //console.dir(button);
+  console.log(hasInvalidInput(inputs));
+  if (hasInvalidInput(inputs)) {
+    buttonElement.classList.add("form__button_inactive");
+    //button.disabled = true; //invalid => disable button
+    console.log("if");
+  } else {
+    console.log("else");
+    buttonElement.classList.remove("form__button_inactive");
+    //button.disabled = false;
+  }
+};
+
+const setEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll(".form__input"));
+  const buttonElement = formElement.querySelector(".form__button");
+  toggleButtonState(inputList, buttonElement);
+
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener("input", function () {
+      checkValidity(inputElement);
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+};
+
 const enableValidation = (settings) => {
   //find all forms
   const forms = Array.from(document.querySelectorAll(".form"));
-  console.log("all form", forms);
 
   //prevent their default behaviour
   forms.forEach((form) => {
     console.log(form);
     form.addEventListener("submit", (evt) => evt.preventDefault());
-
-    const inputs = Array.from(document.querySelectorAll(".form__input"));
-    //Subscribe to its change
-    inputs.forEach((input) => {
-      input.addEventListener("input", () => {
-        // check validity
-        checkValidity(input);
-        //toggle Button State
-        //toggleButtonState();
-      });
-    });
   });
 
-  //check is inputs is valid
-  //if it is valid
-  // if no => show error === default browser message for input
+  forms.forEach((form) => {
+    setEventListeners(form);
+  });
 };
 
 // pass all the settings on call
 const settings = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__button",
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__button",
   inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 };
 
-enableValidation(settings);
+enableValidation(settings); // enabling validation by calling enableValidation()

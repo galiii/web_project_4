@@ -9,6 +9,7 @@
   align-self: center;
 }
 
+
 @media screen and (max-width: 540px) {
   .form {
     margin: 76px 22px 25px;

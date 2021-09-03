@@ -137,9 +137,8 @@ const generateCard = (cardData) => {
   const deleteButton = listItem.querySelector(".card__delete");
   const title = listItem.querySelector(".card__title");
   const like = listItem.querySelector(".card__like");
-  // Popuos Items
-  const figureModel = document.querySelector(".popup_type_image");
 
+  const figureModel = document.querySelector(".popup_type_image");// Popuos Items
   imagePropertySetup(cardData, imageElement); // Image Property setup
   title.textContent = cardData.name; // Title Property setup
   deleteCard(deleteButton); //Delete Property click Event

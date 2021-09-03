@@ -27,13 +27,11 @@ const checkValidity = (inputElement, settings) => {
 
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
-    console.dir(inputElement);
     return !inputElement.validity.valid;
   });
 };
 
 const toggleButtonState = (inputList, buttonElement, settings) => {
-  //console.dir(button);
   const { inactiveButtonClass } = settings;
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(inactiveButtonClass);

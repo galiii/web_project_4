@@ -1,4 +1,3 @@
-let counter = 0;
 /* Show error => default browser message for input */
 const showError = (inputElement, settings) => {
   const { inputErrorClass, errorClass } = settings;

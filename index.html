@@ -58,37 +58,31 @@
           ></button>
           <h3 class="popup__title">Edit Profile</h3>
           <form name="profile" action="#" class="form" novalidate>
+            <input
+              type="text"
+              name="name"
+              id="name-input"
+              class="form__input form__input_type_name"
+              placeholder="name"
+              required
+              minlength="2"
+              maxlength="40"
+            />
+            <span id="name-input-error"></span>
 
-              <input
-                type="text"
-                name="name"
-                id="name-input"
-                class="form__input form__input_type_name"
-                placeholder="name"
-                required
-                minlength="2"
-                maxlength="40"
-              />
-              <span id="name-input-error"></span>
+            <input
+              type="text"
+              name="job"
+              id="job-input"
+              class="form__input form__input_type_job"
+              placeholder="job"
+              required
+              minlength="2"
+              maxlength="200"
+            />
+            <span id="job-input-error"></span>
 
-
-              <input
-                type="text"
-                name="job"
-                id="job-input"
-                class="form__input form__input_type_job"
-                placeholder="job"
-                required
-                minlength="2"
-                maxlength="200"
-              />
-              <span id="job-input-error"></span>
-
-            <button
-              type="submit"
-              aria-label="Submit"
-              class="form__button"
-            >
+            <button type="submit" aria-label="Submit" class="form__button">
               Save
             </button>
           </form>
@@ -119,17 +113,13 @@
             <input
               type="url"
               name="card-link"
-              id= "card-link-input"
+              id="card-link-input"
               class="form__input form__input_type_card-link"
               placeholder="Image link"
               required
             />
             <span id="card-link-input-error"></span>
-            <button
-              type="submit"
-              aria-label="Submit"
-              class="form__button"
-            >
+            <button type="submit" aria-label="Submit" class="form__button">
               Create
             </button>
           </form>

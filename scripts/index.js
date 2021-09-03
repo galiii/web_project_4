@@ -80,7 +80,6 @@ const closePopup = (model) => {
   document.removeEventListener("keydown", closePopupKeydown);
 };
 
-
 const openPopup = (model) => {
   model.addEventListener("click", closePopupClick);
   model.classList.add("popup_open");

@@ -28,17 +28,14 @@ const initialCards = [
 //Open Buttons
 const editProfileButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".profile__add-button");
-
 //Card
 const list = document.querySelector(".cards__list");
 const cardTemplate = document
   .querySelector("#card-template")
   .content.querySelector(".card");
-
 //Models
 const editProfileModel = document.querySelector(".popup_type_edit-profile");
 const addCardModel = document.querySelector(".popup_type_add-card");
-
 //Close buttons
 const editModelCloseButton = editProfileModel.querySelector(
   ".popup__close-button"
@@ -46,11 +43,9 @@ const editModelCloseButton = editProfileModel.querySelector(
 const addCardModelCloseButton = addCardModel.querySelector(
   ".popup__close-button"
 );
-
 //Form
 const editProfileForm = editProfileModel.querySelector(".form");
 const addCardForm = addCardModel.querySelector(".form");
-
 //Input
 const profileNameInput = editProfileModel.querySelector(
   ".form__input_type_name"
@@ -60,47 +55,61 @@ const cardTitleInput = addCardModel.querySelector(
   ".form__input_type_card-title"
 );
 const cardLinkInput = addCardModel.querySelector(".form__input_type_card-link");
-
 //User
 const userNameElement = document.querySelector(".profile__name");
 const userJobElement = document.querySelector(".profile__job");
 
-//function
-const closePopup = (model) => {
-  model.classList.remove("popup_open");
+/***** Function ****/
+const closePopupKeydown = (evt) => {
+  if (evt.key === "Escape" || evt.keyCode === 229) {
+    const active = document.querySelector("popup_open");
+    closePopup(active);
+  }
 };
+
+const closePopupClick = (evt) => {
+  //Sometimes evt.target and evt.currentTarget are the same thing
+  if (evt.target === evt.currentTarget) {
+    closePopup(evt.currentTarget);
+  }
+};
+
+const closePopup = (model) => {
+  model.removeEventListener("click", closePopupClick);
+  model.classList.remove("popup_open");
+  document.removeEventListener("keydown", closePopupKeydown);
+};
+
 
 const openPopup = (model) => {
+  model.addEventListener("click", closePopupClick);
   model.classList.add("popup_open");
+  document.addEventListener("keydown", closePopupKeydown);
 };
 
-const generateCard = (cardData) => {
-  const listItem = cardTemplate.cloneNode(true);
-  // Items
-  const imageElement = listItem.querySelector(".card__image");
-  const deleteButton = listItem.querySelector(".card__delete");
-  const title = listItem.querySelector(".card__title");
-  const like = listItem.querySelector(".card__like");
-  // Popuos Items
-  const figureModel = document.querySelector(".popup_type_image");
-  const figureCloseButton = figureModel.querySelector(".popup__close-button");
-
-  // Image Property setup
+/** Image Property setup **/
+const imagePropertySetup = (cardData, imageElement) => {
   imageElement.src = cardData.link;
   imageElement.alt = cardData.name;
-  // Title Property setup
-  title.textContent = cardData.name;
+};
 
-  /** Delete Property click Event **/
-  deleteButton.addEventListener("click", () => {
-    const card = deleteButton.closest(".card");
+/** Delete Property click Event  **/
+const deleteCard = (deleteButtonElement) => {
+  deleteButtonElement.addEventListener("click", () => {
+    const card = deleteButtonElement.closest(".card");
     card.remove();
   });
-  /** Like Property click Event **/
-  like.addEventListener("click", (evt) => {
+};
+
+/** Like Property click Event **/
+const createLike = (likeElement) => {
+  likeElement.addEventListener("click", (evt) => {
     evt.target.classList.toggle("card__like_active");
   });
-  /** Image Property click Event **/
+};
+
+/** Image Property click Event **/
+const createFigurePopup = (imageElement, figureModel, cardData) => {
   imageElement.addEventListener("click", () => {
     var img = figureModel.querySelector(".popup__image");
     var caption = figureModel.querySelector(".popup__caption");
@@ -112,11 +121,33 @@ const generateCard = (cardData) => {
     caption.textContent = cardData.name;
     openPopup(figureModel);
   });
+};
 
+/** Close popup figure event **/
+const figureClosePopup = (figureModel) => {
+  const figureCloseButton = figureModel.querySelector(".popup__close-button");
   figureCloseButton.addEventListener("click", () => {
     closePopup(figureModel);
-    //figureModel.classList.remove("popup_open");
   });
+};
+
+const generateCard = (cardData) => {
+  const listItem = cardTemplate.cloneNode(true);
+  // Items
+  const imageElement = listItem.querySelector(".card__image");
+  const deleteButton = listItem.querySelector(".card__delete");
+  const title = listItem.querySelector(".card__title");
+  const like = listItem.querySelector(".card__like");
+  // Popuos Items
+  const figureModel = document.querySelector(".popup_type_image");
+
+  imagePropertySetup(cardData, imageElement); // Image Property setup
+  title.textContent = cardData.name; // Title Property setup
+  deleteCard(deleteButton); //Delete Property click Event
+  createLike(like); //Like Property click Event
+  createFigurePopup(imageElement, figureModel, cardData); ///Image Property click Event
+  figureClosePopup(figureModel); //Close popup figure event
+
   list.append(listItem);
 };
 

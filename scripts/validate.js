@@ -82,3 +82,8 @@ const settings = {
 };
 
 enableValidation(settings); // enabling validation by calling enableValidation()
+
+const ResettingFormValidation = () => {
+
+};
+

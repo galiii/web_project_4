@@ -1,6 +1,5 @@
-import initialCards from './cards.js';
-import ResettingFormValidation from './validate.js';
-
+import initialCards from "./cards.js";
+import ResettingFormValidation from "./validate.js";
 
 //Open Buttons
 const editProfileButton = document.querySelector(".profile__edit-button");
@@ -38,7 +37,8 @@ const userJobElement = document.querySelector(".profile__job");
 
 /***** Function ****/
 const closePopupKeydown = (evt) => {
-  if (evt.key === "Escape") { //evt.keyCode === 229
+  if (evt.key === "Escape") {
+    //evt.keyCode === 229
     const active = document.querySelector(".popup_open");
     closePopup(active);
   }
@@ -55,7 +55,7 @@ const closePopup = (model) => {
   model.removeEventListener("click", closePopupClick);
   model.classList.remove("popup_open");
   document.removeEventListener("keydown", closePopupKeydown);
-  ResettingFormValidation(model)
+  ResettingFormValidation(model);
 };
 
 const openPopup = (model) => {
@@ -98,10 +98,7 @@ const createFigurePopup = (imageElement, figureModel, cardData) => {
     caption.textContent = cardData.name;
     openPopup(figureModel);
   });
-};
 
-/** Close popup figure event **/
-const figureClosePopup = (figureModel) => {
   const figureCloseButton = figureModel.querySelector(".popup__close-button");
   figureCloseButton.addEventListener("click", () => {
     closePopup(figureModel);
@@ -115,24 +112,23 @@ const generateCard = (cardData) => {
   const deleteButton = listItem.querySelector(".card__delete");
   const title = listItem.querySelector(".card__title");
   const like = listItem.querySelector(".card__like");
+  const figureModel = document.querySelector(".popup_type_image"); // Popuos Items
 
-  const figureModel = document.querySelector(".popup_type_image");// Popuos Items
   imagePropertySetup(cardData, imageElement); // Image Property setup
   title.textContent = cardData.name; // Title Property setup
   deleteCard(deleteButton); //Delete Property click Event
   createLike(like); //Like Property click Event
-  createFigurePopup(imageElement, figureModel, cardData); ///Image Property click Event
-  //figureClosePopup(figureModel); //Close popup figure event
+  createFigurePopup(imageElement, figureModel, cardData); ///Image Property click
 
-  //list.append(listItem);
   return listItem;
 };
 
 const renderCard = (cardItem) => {
   list.prepend(generateCard(cardItem));
+  //console.log("123",list);
 };
 
-initialCards.forEach(cardItem => {
+initialCards.forEach((cardItem) => {
   renderCard(cardItem);
 });
 
@@ -140,7 +136,7 @@ initialCards.forEach(cardItem => {
 
 const addCardFormSubmit = (evt) => {
   evt.preventDefault();
-  generateCard({ name: cardTitleInput.value, link: cardLinkInput.value });
+  renderCard({ name: cardTitleInput.value, link: cardLinkInput.value });
   closePopup(addCardModel);
   //reset the values (clean)
   addCardForm.reset();
@@ -163,7 +159,6 @@ editProfileButton.addEventListener("click", () => {
 
 addCardButton.addEventListener("click", () => {
   openPopup(addCardModel);
-
 });
 
 /** Close  **/
@@ -175,7 +170,7 @@ addCardModelCloseButton.addEventListener("click", () => {
   closePopup(addCardModel);
   //reset
   cardTitleInput.value = "";
-  cardLinkInput.value ="";
+  cardLinkInput.value = "";
 });
 
 /** Submit **/

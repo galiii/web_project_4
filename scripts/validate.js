@@ -71,18 +71,17 @@ const enableValidation = (settings) => {
   });
 };
 
-
 const ResettingFormValidation = (model) => {
   const buttonElement = model.querySelector(settings.submitButtonSelector);
   const inputList = Array.from(model.querySelectorAll(settings.inputSelector));
 
-  if(buttonElement) { //inactive the button
-    buttonElement.classList.add(settings.inactiveButtonClass)
+  if (buttonElement) {
+    //inactive the button
+    buttonElement.classList.add(settings.inactiveButtonClass);
   }
 
-  inputList.forEach(inputItem => {
-    if(inputItem.classList.contains(settings.errorClass)) {
-      //console.log("hello");
+  inputList.forEach((inputItem) => {
+    if (inputItem.classList.contains(settings.errorClass)) {
       hideError(inputItem, settings);
     }
   });
@@ -101,6 +100,3 @@ const settings = {
 enableValidation(settings); // enabling validation by calling enableValidation()
 
 export default ResettingFormValidation;
-
-
-

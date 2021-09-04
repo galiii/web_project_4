@@ -110,8 +110,8 @@ const createLike = (likeElement) => {
 /** Image Property click Event **/
 const createFigurePopup = (imageElement, figureModel, cardData) => {
   imageElement.addEventListener("click", () => {
-    var img = figureModel.querySelector(".popup__image");
-    var caption = figureModel.querySelector(".popup__caption");
+    const img = figureModel.querySelector(".popup__image");
+    const caption = figureModel.querySelector(".popup__caption");
     //Image properties
     img.src = cardData.link;
     img.alt = cardData.name;

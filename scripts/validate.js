@@ -2,7 +2,7 @@
 const showError = (inputElement, settings) => {
   const { inputErrorClass, errorClass } = settings;
   const errorMessage = inputElement.validationMessage;
-  errorElement = document.querySelector(`#${inputElement.id}-error`);
+  const errorElement = document.querySelector(`#${inputElement.id}-error`);
   inputElement.classList.add(errorClass);
   errorElement.textContent = errorMessage;
   errorElement.classList.add(inputErrorClass);
@@ -10,7 +10,7 @@ const showError = (inputElement, settings) => {
 
 const hideError = (inputElement, settings) => {
   const { inputErrorClass, errorClass } = settings;
-  errorElement = document.querySelector(`#${inputElement.id}-error`);
+  const errorElement = document.querySelector(`#${inputElement.id}-error`);
   errorElement.classList.remove(inputErrorClass);
   errorElement.textContent = "";
   inputElement.classList.remove(errorClass);

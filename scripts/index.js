@@ -61,8 +61,8 @@ const userJobElement = document.querySelector(".profile__job");
 
 /***** Function ****/
 const closePopupKeydown = (evt) => {
-  if (evt.key === "Escape" || evt.keyCode === 229) {
-    const active = document.querySelector("popup_open");
+  if (evt.key === "Escape") { //evt.keyCode === 229
+    const active = document.querySelector(".popup_open");
     closePopup(active);
   }
 };

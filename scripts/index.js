@@ -144,7 +144,7 @@ const generateCard = (cardData) => {
   deleteCard(deleteButton); //Delete Property click Event
   createLike(like); //Like Property click Event
   createFigurePopup(imageElement, figureModel, cardData); ///Image Property click Event
-  figureClosePopup(figureModel); //Close popup figure event
+  //figureClosePopup(figureModel); //Close popup figure event
 
   list.append(listItem);
 };

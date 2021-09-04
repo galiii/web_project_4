@@ -1,4 +1,6 @@
 import initialCards from './cards.js';
+import ResettingFormValidation from './validate.js';
+
 
 //Open Buttons
 const editProfileButton = document.querySelector(".profile__edit-button");
@@ -53,6 +55,7 @@ const closePopup = (model) => {
   model.removeEventListener("click", closePopupClick);
   model.classList.remove("popup_open");
   document.removeEventListener("keydown", closePopupKeydown);
+  ResettingFormValidation(model)
 };
 
 const openPopup = (model) => {
@@ -160,6 +163,7 @@ editProfileButton.addEventListener("click", () => {
 
 addCardButton.addEventListener("click", () => {
   openPopup(addCardModel);
+
 });
 
 /** Close  **/
@@ -169,6 +173,9 @@ editModelCloseButton.addEventListener("click", () => {
 
 addCardModelCloseButton.addEventListener("click", () => {
   closePopup(addCardModel);
+  //reset
+  cardTitleInput.value = "";
+  cardLinkInput.value ="";
 });
 
 /** Submit **/

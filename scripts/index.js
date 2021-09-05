@@ -1,5 +1,5 @@
 import initialCards from "./cards.js";
-import ResettingFormValidation from "./validate.js";
+import resettingFormValidation from "./validate.js";
 
 //Open Buttons
 const editProfileButton = document.querySelector(".profile__edit-button");
@@ -36,6 +36,14 @@ const userNameElement = document.querySelector(".profile__name");
 const userJobElement = document.querySelector(".profile__job");
 
 /***** Function ****/
+const resetInputFormKeydown = (model) => {
+  if (model.classList.contains("popup_type_add-card")) {
+    //reset
+    cardTitleInput.value = "";
+    cardLinkInput.value = "";
+  }
+};
+
 const closePopupKeydown = (evt) => {
   if (evt.key === "Escape") {
     //evt.keyCode === 229
@@ -55,7 +63,15 @@ const closePopup = (model) => {
   model.removeEventListener("click", closePopupClick);
   model.classList.remove("popup_open");
   document.removeEventListener("keydown", closePopupKeydown);
-  ResettingFormValidation(model);
+  //call this function when you close exactly the popups with the form
+  if (
+    model.classList.contains("popup_type_add-card") ||
+    model.classList.contains("popup_type_edit-profile")
+  ) {
+    console.log("hello world", model);
+    resettingFormValidation(model);
+    resetInputFormKeydown(model);
+  }
 };
 
 const openPopup = (model) => {
@@ -125,7 +141,6 @@ const generateCard = (cardData) => {
 
 const renderCard = (cardItem) => {
   list.prepend(generateCard(cardItem));
-  //console.log("123",list);
 };
 
 initialCards.forEach((cardItem) => {

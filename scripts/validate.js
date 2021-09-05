@@ -31,9 +31,14 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const toggleButtonState = (inputList, buttonElement, settings) => {
+const toggleButtonState = (
+  inputList,
+  buttonElement,
+  settings,
+  resetFlag = false
+) => {
   const { inactiveButtonClass } = settings;
-  if (hasInvalidInput(inputList)) {
+  if (hasInvalidInput(inputList) || resetFlag) {
     buttonElement.classList.add(inactiveButtonClass);
     buttonElement.disabled = "disabled"; //invalid => disable button
   } else {
@@ -71,17 +76,18 @@ const enableValidation = (settings) => {
   });
 };
 
-const ResettingFormValidation = (model) => {
+const resettingFormValidation = (model) => {
   const buttonElement = model.querySelector(settings.submitButtonSelector);
   const inputList = Array.from(model.querySelectorAll(settings.inputSelector));
 
   if (buttonElement) {
     //inactive the button
-    buttonElement.classList.add(settings.inactiveButtonClass);
+    toggleButtonState(inputList, buttonElement, settings, true);
   }
 
   inputList.forEach((inputItem) => {
     if (inputItem.classList.contains(settings.errorClass)) {
+      //toggleButtonState(inputList, buttonElement, settings);
       hideError(inputItem, settings);
     }
   });
@@ -99,4 +105,4 @@ const settings = {
 
 enableValidation(settings); // enabling validation by calling enableValidation()
 
-export default ResettingFormValidation;
+export default resettingFormValidation;

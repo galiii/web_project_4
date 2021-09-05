@@ -86,10 +86,8 @@ const resettingFormValidation = (model) => {
   }
 
   inputList.forEach((inputItem) => {
-    if (inputItem.classList.contains(settings.errorClass)) {
       //toggleButtonState(inputList, buttonElement, settings);
       hideError(inputItem, settings);
-    }
   });
 };
 

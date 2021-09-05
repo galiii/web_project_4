@@ -68,7 +68,6 @@ const closePopup = (model) => {
     model.classList.contains("popup_type_add-card") ||
     model.classList.contains("popup_type_edit-profile")
   ) {
-    console.log("hello world", model);
     resettingFormValidation(model);
     resetInputFormKeydown(model);
   }

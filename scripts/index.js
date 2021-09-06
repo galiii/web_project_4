@@ -37,11 +37,10 @@ const userJobElement = document.querySelector(".profile__job");
 
 /***** Function ****/
 const resetInputFormKeydown = (model) => {
-  if (model.classList.contains("popup_type_add-card")) {
-    //reset
-    cardTitleInput.value = "";
-    cardLinkInput.value = "";
-  }
+  //reset
+  cardTitleInput.value = "";
+  cardLinkInput.value = "";
+  resettingFormValidation(model);
 };
 
 const closePopupKeydown = (evt) => {
@@ -63,14 +62,6 @@ const closePopup = (model) => {
   model.removeEventListener("click", closePopupClick);
   model.classList.remove("popup_open");
   document.removeEventListener("keydown", closePopupKeydown);
-  //call this function when you close exactly the popups with the form
-  if (
-    model.classList.contains("popup_type_add-card") ||
-    model.classList.contains("popup_type_edit-profile")
-  ) {
-    resettingFormValidation(model);
-    resetInputFormKeydown(model);
-  }
 };
 
 const openPopup = (model) => {
@@ -169,10 +160,12 @@ editProfileButton.addEventListener("click", () => {
   openPopup(editProfileModel);
   profileNameInput.value = userNameElement.textContent;
   profileJobInput.value = userJobElement.textContent;
+  resettingFormValidation(editProfileModel); //call this function when you close exactly the popups with the form
 });
 
 addCardButton.addEventListener("click", () => {
   openPopup(addCardModel);
+  resetInputFormKeydown(addCardModel); //call this function when you close exactly the popups with the form with reset the input add card.
 });
 
 /** Close  **/

@@ -165,7 +165,7 @@ editProfileButton.addEventListener("click", () => {
 
 addCardButton.addEventListener("click", () => {
   openPopup(addCardModel);
-  resetInputFormKeydown(addCardModel); //call this function when you close exactly the popups with the form with reset the input add card.
+  resetInputFormKeydown(addCardModel); //call this function when you close exactly the popups with the form with reset the input add card
 });
 
 /** Close  **/

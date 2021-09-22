@@ -1,7 +1,7 @@
 import initialCards from "./cards.js";
 import resettingFormValidation from "./validate.js";
-import Card from "./Card.js"
-
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
 
 //Open Buttons
 const editProfileButton = document.querySelector(".profile__edit-button");
@@ -25,8 +25,25 @@ const addCardModelCloseButton = addCardModel.querySelector(
   ".popup__close-button"
 );
 //Form
+// pass all the settings on call
+const settings = {
+  formSelector: ".form",
+  inputSelector: ".form__input",
+  submitButtonSelector: ".form__button",
+  inactiveButtonClass: "form__button_inactive",
+  inputErrorClass: "form__input-error_active",
+  errorClass: "form__input_error",
+};
+
 const editProfileForm = editProfileModel.querySelector(".form");
 const addCardForm = addCardModel.querySelector(".form");
+
+const editProfileFormValidator = new FormValidator(settings, editProfileForm);
+const addCardFormValidator = new FormValidator(settings, addCardForm);
+
+editProfileFormValidator.enableValidation();
+addCardFormValidator.enableValidation();
+
 //Input
 const profileNameInput = editProfileModel.querySelector(
   ".form__input_type_name"
@@ -39,8 +56,6 @@ const cardLinkInput = addCardModel.querySelector(".form__input_type_card-link");
 //User
 const userNameElement = document.querySelector(".profile__name");
 const userJobElement = document.querySelector(".profile__job");
-
-
 
 /***** Function ****/
 const resetInputFormKeydown = (model) => {
@@ -76,7 +91,6 @@ const openPopup = (model) => {
   model.classList.add("popup_open");
   document.addEventListener("keydown", closePopupKeydown);
 };
-
 
 /** Image Property click Event **/
 const createFigurePopup = (imageElement, figureModel, cardData) => {
@@ -116,15 +130,11 @@ const generateCard = (cardData) => {
   return listItem;
 };
 
-const renderCard = (card) => {
-  //will change
-  list.prepend(card.generateCard());
-};
+const renderCard = (card) => list.prepend(card.generateCard());
 
 initialCards.forEach((cardItem) => {
   const card = new Card(cardItem, "#card-template");
   renderCard(card);
-  // create a new Card
 });
 
 /** Form Submit functions **/

@@ -1,4 +1,5 @@
 import initialCards from "./cards.js";
+import {closePopup,openPopup} from "./utils.js"
 import resettingFormValidation from "./validate.js";
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
@@ -9,10 +10,6 @@ const addCardButton = document.querySelector(".profile__add-button");
 //Card
 const list = document.querySelector(".cards__list");
 
-//remove to Card class
-const cardTemplate = document
-  .querySelector("#card-template")
-  .content.querySelector(".card");
 
 //Models
 const editProfileModel = document.querySelector(".popup_type_edit-profile");
@@ -65,70 +62,8 @@ const resetInputFormKeydown = (model) => {
   resettingFormValidation(model);
 };
 
-const closePopupKeydown = (evt) => {
-  if (evt.key === "Escape") {
-    //evt.keyCode === 229
-    const active = document.querySelector(".popup_open");
-    closePopup(active);
-  }
-};
 
-const closePopupClick = (evt) => {
-  //Sometimes evt.target and evt.currentTarget are the same thing
-  if (evt.target === evt.currentTarget) {
-    closePopup(evt.currentTarget);
-  }
-};
 
-const closePopup = (model) => {
-  model.removeEventListener("click", closePopupClick);
-  model.classList.remove("popup_open");
-  document.removeEventListener("keydown", closePopupKeydown);
-};
-
-const openPopup = (model) => {
-  model.addEventListener("click", closePopupClick);
-  model.classList.add("popup_open");
-  document.addEventListener("keydown", closePopupKeydown);
-};
-
-/** Image Property click Event **/
-const createFigurePopup = (imageElement, figureModel, cardData) => {
-  imageElement.addEventListener("click", () => {
-    const img = figureModel.querySelector(".popup__image");
-    const caption = figureModel.querySelector(".popup__caption");
-    //Image properties
-    img.src = cardData.link;
-    img.alt = cardData.name;
-    //Figcaption properties
-    caption.ariaLabel = cardData.name;
-    caption.textContent = cardData.name;
-    openPopup(figureModel);
-  });
-
-  const figureCloseButton = figureModel.querySelector(".popup__close-button");
-  figureCloseButton.addEventListener("click", () => {
-    closePopup(figureModel);
-  });
-};
-
-const generateCard = (cardData) => {
-  const listItem = cardTemplate.cloneNode(true); //generate instead
-  // Items
-  const imageElement = listItem.querySelector(".card__image");
-  //const deleteButton = listItem.querySelector(".card__delete");
-  const title = listItem.querySelector(".card__title");
-  //const like = listItem.querySelector(".card__like");
-  const figureModel = document.querySelector(".popup_type_image"); // Popuos Items
-
-  //imagePropertySetup(cardData, imageElement); // Image Property setup
-  title.textContent = cardData.name; // Title Property setup
-  //deleteCard(deleteButton); //Delete Property click Event
-  //createLike(like); //Like Property click Event
-  createFigurePopup(imageElement, figureModel, cardData); ///Image Property click
-
-  return listItem;
-};
 
 const renderCard = (card) => list.prepend(card.generateCard());
 
@@ -141,7 +76,7 @@ initialCards.forEach((cardItem) => {
 
 const addCardFormSubmit = (evt) => {
   evt.preventDefault();
-  renderCard({ name: cardTitleInput.value, link: cardLinkInput.value });
+  renderCard(new Card({ name: cardTitleInput.value, link: cardLinkInput.value }, "#card-template"));
   closePopup(addCardModel);
   //reset the values (clean)
   addCardForm.reset();

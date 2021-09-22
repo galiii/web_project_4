@@ -1,14 +1,19 @@
 import initialCards from "./cards.js";
 import resettingFormValidation from "./validate.js";
+import Card from "./Card.js"
+
 
 //Open Buttons
 const editProfileButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".profile__add-button");
 //Card
 const list = document.querySelector(".cards__list");
+
+//remove to Card class
 const cardTemplate = document
   .querySelector("#card-template")
   .content.querySelector(".card");
+
 //Models
 const editProfileModel = document.querySelector(".popup_type_edit-profile");
 const addCardModel = document.querySelector(".popup_type_add-card");
@@ -34,6 +39,8 @@ const cardLinkInput = addCardModel.querySelector(".form__input_type_card-link");
 //User
 const userNameElement = document.querySelector(".profile__name");
 const userJobElement = document.querySelector(".profile__job");
+
+
 
 /***** Function ****/
 const resetInputFormKeydown = (model) => {
@@ -70,26 +77,6 @@ const openPopup = (model) => {
   document.addEventListener("keydown", closePopupKeydown);
 };
 
-/** Image Property setup **/
-const imagePropertySetup = (cardData, imageElement) => {
-  imageElement.src = cardData.link;
-  imageElement.alt = cardData.name;
-};
-
-/** Delete Property click Event  **/
-const deleteCard = (deleteButtonElement) => {
-  deleteButtonElement.addEventListener("click", () => {
-    const card = deleteButtonElement.closest(".card");
-    card.remove();
-  });
-};
-
-/** Like Property click Event **/
-const createLike = (likeElement) => {
-  likeElement.addEventListener("click", (evt) => {
-    evt.target.classList.toggle("card__like_active");
-  });
-};
 
 /** Image Property click Event **/
 const createFigurePopup = (imageElement, figureModel, cardData) => {
@@ -112,29 +99,32 @@ const createFigurePopup = (imageElement, figureModel, cardData) => {
 };
 
 const generateCard = (cardData) => {
-  const listItem = cardTemplate.cloneNode(true);
+  const listItem = cardTemplate.cloneNode(true); //generate instead
   // Items
   const imageElement = listItem.querySelector(".card__image");
-  const deleteButton = listItem.querySelector(".card__delete");
+  //const deleteButton = listItem.querySelector(".card__delete");
   const title = listItem.querySelector(".card__title");
-  const like = listItem.querySelector(".card__like");
+  //const like = listItem.querySelector(".card__like");
   const figureModel = document.querySelector(".popup_type_image"); // Popuos Items
 
-  imagePropertySetup(cardData, imageElement); // Image Property setup
+  //imagePropertySetup(cardData, imageElement); // Image Property setup
   title.textContent = cardData.name; // Title Property setup
-  deleteCard(deleteButton); //Delete Property click Event
-  createLike(like); //Like Property click Event
+  //deleteCard(deleteButton); //Delete Property click Event
+  //createLike(like); //Like Property click Event
   createFigurePopup(imageElement, figureModel, cardData); ///Image Property click
 
   return listItem;
 };
 
-const renderCard = (cardItem) => {
-  list.prepend(generateCard(cardItem));
+const renderCard = (card) => {
+  //will change
+  list.prepend(card.generateCard());
 };
 
 initialCards.forEach((cardItem) => {
-  renderCard(cardItem);
+  const card = new Card(cardItem, "#card-template");
+  renderCard(card);
+  // create a new Card
 });
 
 /** Form Submit functions **/

@@ -33,7 +33,6 @@ const settings = {
 const formEditProfile = editProfileModel.querySelector(".form");
 const formAddCard = addCardModel.querySelector(".form");
 
-
 const editProfileFormValidator = new FormValidator(settings, formEditProfile);
 const addCardFormValidator = new FormValidator(settings, formAddCard);
 
@@ -60,11 +59,12 @@ const resetInputFormKeydown = (formValidator, model) => {
   cardLinkInput.value = "";
   formValidator.resettingFormValidation(model);
 };
+const createCard = (cardData) => new Card(cardData, "#card-template");
 
 const renderCard = (card) => list.prepend(card.generateCard());
 
 initialCards.forEach((cardItem) => {
-  const card = new Card(cardItem, "#card-template");
+  const card = createCard(cardItem);
   renderCard(card);
 });
 
@@ -73,10 +73,7 @@ initialCards.forEach((cardItem) => {
 const addCardFormSubmit = (evt) => {
   evt.preventDefault();
   renderCard(
-    new Card(
-      { name: cardTitleInput.value, link: cardLinkInput.value },
-      "#card-template"
-    )
+    createCard({ name: cardTitleInput.value, link: cardLinkInput.value })
   );
   closePopup(addCardModel);
   //reset the values (clean)

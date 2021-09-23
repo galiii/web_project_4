@@ -1,4 +1,4 @@
-import {figureModel, img, caption, openPopup, closePopup} from "./utils.js";
+import { figureModel, img, caption, openPopup, closePopup } from "./utils.js";
 
 export default class Card {
   constructor(cardData, cardSelector) {
@@ -41,7 +41,6 @@ export default class Card {
   /** Image Property click Event **/
   _createFigurePopup = (imageElement) => {
     imageElement.addEventListener("click", () => {
-
       //Image properties
       img.src = this._link;
       img.alt = this._name;

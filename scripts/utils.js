@@ -1,16 +1,12 @@
-
 export const figureModel = document.querySelector(".popup_type_image"); // Popuos Items
 export const img = figureModel.querySelector(".popup__image");
 export const caption = figureModel.querySelector(".popup__caption");
-
 
 export const closePopup = (model) => {
   model.removeEventListener("click", closePopupClick);
   model.classList.remove("popup_open");
   document.removeEventListener("keydown", closePopupKeydown);
 };
-
-
 
 const closePopupKeydown = (evt) => {
   if (evt.key === "Escape") {
@@ -20,7 +16,7 @@ const closePopupKeydown = (evt) => {
   }
 };
 
- const closePopupClick = (evt) => {
+const closePopupClick = (evt) => {
   //Sometimes evt.target and evt.currentTarget are the same thing
   if (evt.target === evt.currentTarget) {
     closePopup(evt.currentTarget);

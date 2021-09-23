@@ -1,6 +1,5 @@
 import initialCards from "./cards.js";
-import {closePopup,openPopup} from "./utils.js"
-import resettingFormValidation from "./validate.js";
+import { closePopup, openPopup } from "./utils.js";
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 
@@ -9,7 +8,6 @@ const editProfileButton = document.querySelector(".profile__edit-button");
 const addCardButton = document.querySelector(".profile__add-button");
 //Card
 const list = document.querySelector(".cards__list");
-
 
 //Models
 const editProfileModel = document.querySelector(".popup_type_edit-profile");
@@ -55,15 +53,12 @@ const userNameElement = document.querySelector(".profile__name");
 const userJobElement = document.querySelector(".profile__job");
 
 /***** Function ****/
-const resetInputFormKeydown = (model) => {
+const resetInputFormKeydown = (formValidator, model) => {
   //reset
   cardTitleInput.value = "";
   cardLinkInput.value = "";
-  resettingFormValidation(model);
+  formValidator.resettingFormValidation(model);
 };
-
-
-
 
 const renderCard = (card) => list.prepend(card.generateCard());
 
@@ -76,7 +71,12 @@ initialCards.forEach((cardItem) => {
 
 const addCardFormSubmit = (evt) => {
   evt.preventDefault();
-  renderCard(new Card({ name: cardTitleInput.value, link: cardLinkInput.value }, "#card-template"));
+  renderCard(
+    new Card(
+      { name: cardTitleInput.value, link: cardLinkInput.value },
+      "#card-template"
+    )
+  );
   closePopup(addCardModel);
   //reset the values (clean)
   addCardForm.reset();
@@ -95,12 +95,12 @@ editProfileButton.addEventListener("click", () => {
   openPopup(editProfileModel);
   profileNameInput.value = userNameElement.textContent;
   profileJobInput.value = userJobElement.textContent;
-  resettingFormValidation(editProfileModel); //call this function when you close exactly the popups with the form
+  editProfileFormValidator.resettingFormValidation(editProfileModel); //call this function when you close exactly the popups with the form
 });
 
 addCardButton.addEventListener("click", () => {
   openPopup(addCardModel);
-  resetInputFormKeydown(addCardModel); //call this function when you close exactly the popups with the form with reset the input add card
+  resetInputFormKeydown(addCardFormValidator, addCardModel); //call this function when you close exactly the popups with the form with reset the input add card
 });
 
 /** Close  **/

@@ -1,5 +1,3 @@
-
-
 export default class FormValidator {
   constructor(settings, formElement) {
     this._settings = settings;
@@ -78,10 +76,9 @@ export default class FormValidator {
   };
 
   resettingFormValidation = (model) => {
-    const buttonElement = model.querySelector(settings.submitButtonSelector);
-    const inputList = Array.from(
-      model.querySelectorAll(settings.inputSelector)
-    );
+    const { inputSelector, submitButtonSelector } = this._settings;
+    const buttonElement = model.querySelector(submitButtonSelector);
+    const inputList = Array.from(model.querySelectorAll(inputSelector));
 
     if (buttonElement) {
       //inactive the button

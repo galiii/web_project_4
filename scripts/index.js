@@ -30,11 +30,12 @@ const settings = {
   errorClass: "form__input_error",
 };
 
-const editProfileForm = editProfileModel.querySelector(".form");
-const addCardForm = addCardModel.querySelector(".form");
+const formEditProfile = editProfileModel.querySelector(".form");
+const formAddCard = addCardModel.querySelector(".form");
 
-const editProfileFormValidator = new FormValidator(settings, editProfileForm);
-const addCardFormValidator = new FormValidator(settings, addCardForm);
+
+const editProfileFormValidator = new FormValidator(settings, formEditProfile);
+const addCardFormValidator = new FormValidator(settings, formAddCard);
 
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
@@ -79,7 +80,7 @@ const addCardFormSubmit = (evt) => {
   );
   closePopup(addCardModel);
   //reset the values (clean)
-  addCardForm.reset();
+  formAddCard.reset();
 };
 
 const editProfileFormSubmit = (evt) => {
@@ -116,5 +117,5 @@ addCardModelCloseButton.addEventListener("click", () => {
 });
 
 /** Submit **/
-editProfileForm.addEventListener("submit", editProfileFormSubmit);
-addCardForm.addEventListener("submit", addCardFormSubmit);
+formEditProfile.addEventListener("submit", editProfileFormSubmit);
+formAddCard.addEventListener("submit", addCardFormSubmit);

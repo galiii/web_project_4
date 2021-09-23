@@ -1,5 +1,5 @@
 import initialCards from "./cards.js";
-import { closePopup, openPopup } from "./utils.js";
+import { figureModel, closePopup, openPopup } from "./utils.js";
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 
@@ -16,9 +16,12 @@ const addCardModel = document.querySelector(".popup_type_add-card");
 const editModelCloseButton = editProfileModel.querySelector(
   ".popup__close-button"
 );
+
 const addCardModelCloseButton = addCardModel.querySelector(
   ".popup__close-button"
 );
+
+const figureCloseButton = figureModel.querySelector(".popup__close-button");
 //Form
 // pass all the settings on call
 const settings = {
@@ -112,6 +115,9 @@ addCardModelCloseButton.addEventListener("click", () => {
   cardTitleInput.value = "";
   cardLinkInput.value = "";
 });
+
+figureCloseButton.addEventListener("click", () => closePopup(figureModel));
+
 
 /** Submit **/
 formEditProfile.addEventListener("submit", editProfileFormSubmit);

@@ -36,7 +36,7 @@ export default class Card {
       evt.target.classList.toggle("card__like_active");
     });
   };
-  //_createFigurePopup
+
   /** Image Property click Event **/
   _createFigurePopup = (imageElement) => {
     imageElement.addEventListener("click", () => {
@@ -47,11 +47,6 @@ export default class Card {
       caption.ariaLabel = this._name;
       caption.textContent = this._name;
       openPopup(figureModel);
-    });
-
-    const figureCloseButton = figureModel.querySelector(".popup__close-button");
-    figureCloseButton.addEventListener("click", () => {
-      closePopup(figureModel);
     });
   };
 

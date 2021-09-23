@@ -19,7 +19,6 @@ export default class Card {
 
   _imagePropertySetup = (imageElement) => {
     imageElement.src = this._link;
-    console.log("hello", imageElement.src);
     imageElement.alt = this._name;
   };
 

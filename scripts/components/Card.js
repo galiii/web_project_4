@@ -1,7 +1,7 @@
-import { figureModel, img, caption, openPopup, closePopup } from "./utils.js";
+import { figureModel, img, caption, openPopup, closePopup } from "../utils/utils.js";
 
 export default class Card {
-  constructor(cardData, cardSelector) {
+  constructor(cardData, cardSelector, handleCardClick) {
     //private
     this._name = cardData.name;
     this._link = cardData.link;
@@ -9,6 +9,7 @@ export default class Card {
     this._cardTemplate = document
       .querySelector(this._cardSelector) //#card-template
       .content.querySelector(".card");
+      this._handleCardClick = handleCardClick;
   }
 
   //privates methods

@@ -1,40 +1,17 @@
-import initialCards from "./cards.js";
-import { figureModel, closePopup, openPopup } from "./utils.js";
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
+//contain only the code for creating class instances and adding specific event listeners
 
-//Open Buttons
-const editProfileButton = document.querySelector(".profile__edit-button");
-const addCardButton = document.querySelector(".profile__add-button");
-//Card
-const list = document.querySelector(".cards__list");
-
-//Models
-const editProfileModel = document.querySelector(".popup_type_edit-profile");
-const addCardModel = document.querySelector(".popup_type_add-card");
-//Close buttons
-const editModelCloseButton = editProfileModel.querySelector(
-  ".popup__close-button"
-);
-
-const addCardModelCloseButton = addCardModel.querySelector(
-  ".popup__close-button"
-);
-
-const figureCloseButton = figureModel.querySelector(".popup__close-button");
-//Form
-// pass all the settings on call
-const settings = {
-  formSelector: ".form",
-  inputSelector: ".form__input",
-  submitButtonSelector: ".form__button",
-  inactiveButtonClass: "form__button_inactive",
-  inputErrorClass: "form__input-error_active",
-  errorClass: "form__input_error",
-};
-
-const formEditProfile = editProfileModel.querySelector(".form");
-const formAddCard = addCardModel.querySelector(".form");
+import initialCards from "../utils/cards.js";
+import { closePopup, openPopup } from "../utils/utils.js";
+import {
+  settings,
+  editProfileButton,
+  addCardButton,
+  formEditProfile,
+  formAddCard,
+} from "../utils/constants.js";
+import Card from "../components/Card.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import FormValidator from "../components/FormValidator.js";
 
 const editProfileFormValidator = new FormValidator(settings, formEditProfile);
 const addCardFormValidator = new FormValidator(settings, formAddCard);
@@ -62,12 +39,20 @@ const resetInputFormKeydown = (formValidator, model) => {
   cardLinkInput.value = "";
   formValidator.resettingFormValidation(model);
 };
-const createCard = (cardData) => new Card(cardData, "#card-template");
+
+const figureModel = new PopupWithImage(".popup_type_image"); // Popuos Items
+
+const createCard = (cardData) => {
+  return new Card(cardData, "#card-template", () => {
+    figureModel.open(cardData);
+  });
+};
 
 const renderCard = (card) => list.prepend(card.generateCard());
 
 initialCards.forEach((cardItem) => {
   const card = createCard(cardItem);
+  console.log(card);
   renderCard(card);
 });
 
@@ -116,8 +101,7 @@ addCardModelCloseButton.addEventListener("click", () => {
   cardLinkInput.value = "";
 });
 
-figureCloseButton.addEventListener("click", () => closePopup(figureModel));
-
+//figureCloseButton.addEventListener("click", () => closePopup(figureModel));
 
 /** Submit **/
 formEditProfile.addEventListener("submit", editProfileFormSubmit);

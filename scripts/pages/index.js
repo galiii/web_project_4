@@ -27,6 +27,8 @@ import {
   userNameElement,
   userJobElement,
 } from "../utils/constants.js";
+
+//components
 import Section from "../components/Section.js";
 import Card from "../components/Card.js";
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -56,21 +58,34 @@ const resetInputFormKeydown = (formValidator, model) => {
 
 const figureModel = new PopupWithImage(".popup_type_image"); // Popuos Items
 
+const cardsList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const cardElement = createCard(item);
+      cardsList.addItem(cardElement.generateCard());
+    },
+  },
+  ".cards__list"
+);
+
+let counter = 0;
 const createCard = (cardData) => {
-  return new Card(cardData, "#card-template", () => {
+  const card = new Card(cardData, "#card-template", () => {
+  //return new Card(cardData, "#card-template", () => {
+    console.log("ghghgh",++counter);
     figureModel.open(cardData);
   });
+  return card;
 };
-
-const renderCard = (card) => list.prepend(card.generateCard());
 
 /** Form Submit functions **/
 
 const addCardFormSubmit = (evt) => {
   evt.preventDefault();
-  renderCard(
-    createCard({ name: cardTitleInput.value, link: cardLinkInput.value })
-  );
+  const cardElement = createCard({ name: cardTitleInput.value, link: cardLinkInput.value });
+  cardsList.prependItem(cardElement.generateCard());
+
   closePopup(addCardModel);
   //reset the values (clean)
   formAddCard.reset();
@@ -80,7 +95,7 @@ const editProfileFormSubmit = (evt) => {
   evt.preventDefault();
   userNameElement.textContent = profileNameInput.value;
   userJobElement.textContent = profileJobInput.value;
-  closePopup(editProfileModel);
+  //closePopup(editProfileModel);
 };
 
 /** Events **/
@@ -92,17 +107,17 @@ editProfileButton.addEventListener("click", () => {
   profileNameInput.value = userData.name;
   profileJobInput.value = userData.job;
 
-  editProfileFormValidator.resettingFormValidation(editProfileModel); //call this function when you close exactly the popups with the form
+  //editProfileFormValidator.resettingFormValidation(editProfileModel); //call this function when you close exactly the popups with the form
 });
 
 addCardButton.addEventListener("click", () => {
   openPopup(addCardModel);
-  resetInputFormKeydown(addCardFormValidator, addCardModel); //call this function when you close exactly the popups with the form with reset the input add card
+  //resetInputFormKeydown(addCardFormValidator, addCardModel); //call this function when you close exactly the popups with the form with reset the input add card
 });
 
 /** Close  **/
 editModelCloseButton.addEventListener("click", () => {
-  closePopup(editProfileModel);
+  //closePopup(editProfileModel);
 });
 
 addCardModelCloseButton.addEventListener("click", () => {
@@ -117,16 +132,5 @@ addCardModelCloseButton.addEventListener("click", () => {
 /** Submit **/
 formEditProfile.addEventListener("submit", editProfileFormSubmit);
 formAddCard.addEventListener("submit", addCardFormSubmit);
-
-const cardsList = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const cardElement = createCard(item);
-      cardsList.addItem(cardElement.generateCard());
-    },
-  },
-  ".cards__list"
-);
 
 cardsList.renderer();

@@ -4,10 +4,28 @@ import initialCards from "../utils/cards.js";
 import { closePopup, openPopup } from "../utils/utils.js";
 import {
   settings,
+  //Open Buttons
   editProfileButton,
   addCardButton,
+  //Form
   formEditProfile,
   formAddCard,
+  //Models
+  editProfileModel,
+  addCardModel,
+  //Card
+  list,
+  //Close buttons
+  editModelCloseButton,
+  addCardModelCloseButton,
+  //Input
+  profileNameInput,
+  profileJobInput,
+  cardTitleInput,
+  cardLinkInput,
+  //User
+  userNameElement,
+  userJobElement
 } from "../utils/constants.js";
 import Card from "../components/Card.js";
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -19,18 +37,7 @@ const addCardFormValidator = new FormValidator(settings, formAddCard);
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
 
-//Input
-const profileNameInput = editProfileModel.querySelector(
-  ".form__input_type_name"
-);
-const profileJobInput = editProfileModel.querySelector(".form__input_type_job");
-const cardTitleInput = addCardModel.querySelector(
-  ".form__input_type_card-title"
-);
-const cardLinkInput = addCardModel.querySelector(".form__input_type_card-link");
-//User
-const userNameElement = document.querySelector(".profile__name");
-const userJobElement = document.querySelector(".profile__job");
+
 
 /***** Function ****/
 const resetInputFormKeydown = (formValidator, model) => {

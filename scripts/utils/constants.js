@@ -5,6 +5,11 @@ export const settings = { // pass all the settings on call
   inactiveButtonClass: "form__button_inactive",
   inputErrorClass: "form__input-error_active",
   errorClass: "form__input_error",
+  //User
+  userNameSelector: ".profile__name",
+  userJobSelector: ".profile__job"
+
+
 };
 
 

@@ -30,12 +30,20 @@ import {
 import Card from "../components/Card.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "../components/FormValidator.js";
+import UserInfo from "../components/UserInfo.js"
 
+//FORM
 const editProfileFormValidator = new FormValidator(settings, formEditProfile);
 const addCardFormValidator = new FormValidator(settings, formAddCard);
 
+//USER
+const userInfo = new UserInfo(settings.userNameSelector, settings.userJobSelector);
+
+
+
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
+
 
 
 
@@ -86,8 +94,12 @@ const editProfileFormSubmit = (evt) => {
 /** Open  **/
 editProfileButton.addEventListener("click", () => {
   openPopup(editProfileModel);
-  profileNameInput.value = userNameElement.textContent;
-  profileJobInput.value = userJobElement.textContent;
+  const userData = userInfo.getUserInfo();
+  //profileNameInput.value, profileJobInput.value = userInfo.getUserInfo();
+  //userInfo.setUserInfo({profileNameInput.value: , job: profileJobInput.value});
+  profileNameInput.value = userData.name;
+  profileJobInput.value = userData.job;
+
   editProfileFormValidator.resettingFormValidation(editProfileModel); //call this function when you close exactly the popups with the form
 });
 

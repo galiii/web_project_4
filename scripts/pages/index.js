@@ -25,27 +25,26 @@ import {
   cardLinkInput,
   //User
   userNameElement,
-  userJobElement
+  userJobElement,
 } from "../utils/constants.js";
+import Section from "../components/Section.js";
 import Card from "../components/Card.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import FormValidator from "../components/FormValidator.js";
-import UserInfo from "../components/UserInfo.js"
+import UserInfo from "../components/UserInfo.js";
 
 //FORM
 const editProfileFormValidator = new FormValidator(settings, formEditProfile);
 const addCardFormValidator = new FormValidator(settings, formAddCard);
 
 //USER
-const userInfo = new UserInfo(settings.userNameSelector, settings.userJobSelector);
-
-
+const userInfo = new UserInfo(
+  settings.userNameSelector,
+  settings.userJobSelector
+);
 
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
-
-
-
 
 /***** Function ****/
 const resetInputFormKeydown = (formValidator, model) => {
@@ -64,12 +63,6 @@ const createCard = (cardData) => {
 };
 
 const renderCard = (card) => list.prepend(card.generateCard());
-
-initialCards.forEach((cardItem) => {
-  const card = createCard(cardItem);
-  console.log(card);
-  renderCard(card);
-});
 
 /** Form Submit functions **/
 
@@ -95,8 +88,7 @@ const editProfileFormSubmit = (evt) => {
 editProfileButton.addEventListener("click", () => {
   openPopup(editProfileModel);
   const userData = userInfo.getUserInfo();
-  //profileNameInput.value, profileJobInput.value = userInfo.getUserInfo();
-  //userInfo.setUserInfo({profileNameInput.value: , job: profileJobInput.value});
+
   profileNameInput.value = userData.name;
   profileJobInput.value = userData.job;
 
@@ -125,3 +117,16 @@ addCardModelCloseButton.addEventListener("click", () => {
 /** Submit **/
 formEditProfile.addEventListener("submit", editProfileFormSubmit);
 formAddCard.addEventListener("submit", addCardFormSubmit);
+
+const cardsList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const cardElement = createCard(item);
+      cardsList.addItem(cardElement.generateCard());
+    },
+  },
+  ".cards__list"
+);
+
+cardsList.renderer();

@@ -8,6 +8,7 @@ export const closePopup = (model) => {
   document.removeEventListener("keydown", closePopupKeydown);
 };
 
+
 const closePopupKeydown = (evt) => {
   if (evt.key === "Escape") {
     //evt.keyCode === 229
@@ -15,6 +16,7 @@ const closePopupKeydown = (evt) => {
     closePopup(active);
   }
 };
+
 
 const closePopupClick = (evt) => {
   //Sometimes evt.target and evt.currentTarget are the same thing
@@ -26,5 +28,5 @@ const closePopupClick = (evt) => {
 export const openPopup = (model) => {
   model.addEventListener("click", closePopupClick);
   model.classList.add("popup_open");
-  document.addEventListener("keydown", closePopupKeydown);
+  //document.addEventListener("keydown", closePopupKeydown);
 };

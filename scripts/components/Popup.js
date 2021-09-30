@@ -1,17 +1,17 @@
-
 export default class Popup {
   constructor(popupSelector) { //.popup_type_edit-profile
     this._popupElement = document.querySelector(popupSelector);
     //if i dont use arrow function this.handleEscClose = this._handleEscClose.bind(this)
   }
 
-  _handleEscClose = () => {
+  _handleEscClose = (evt) => {
     if (evt.key === "Escape") {
       this.close();
     }
   };
 
-  open = () => {
+  open (){
+    console.log("bhdfhscfhdsdcv");
     this._popupElement.classList.add("popup_open");
     document.addEventListener("keydown", this._handleEscClose);
   };

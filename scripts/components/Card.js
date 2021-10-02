@@ -1,4 +1,4 @@
-import { figureModel, img, caption, openPopup, closePopup } from "../utils/utils.js";
+
 
 export default class Card {
   constructor(cardData, cardSelector, handleCardClick) {
@@ -40,21 +40,14 @@ export default class Card {
 
   /** Image Property click Event **/
   _createFigurePopup = (imageElement) => {
-    imageElement.addEventListener("click", () => {
-      //Image properties
-      img.src = this._link;
-      img.alt = this._name;
-      //Figcaption properties
-      caption.ariaLabel = this._name;
-      caption.textContent = this._name;
-      openPopup(figureModel);
-    });
+    //console.log("hello 123");
+    imageElement.addEventListener("click",this._handleCardClick);
   };
 
   _setEventListeners = (cardElement, imageElement) => {
     const deleteButton = cardElement.querySelector(".card__delete");
     const like = cardElement.querySelector(".card__like");
-    //const figureModel = document.querySelector(".popup_type_image"); // Popuos Items
+
 
     this._deleteCard(deleteButton); //Delete Property click Event
     this._createLike(like); //Like Property click Event

@@ -1,7 +1,7 @@
 //contain only the code for creating class instances and adding specific event listeners
 
 import initialCards from "../utils/cards.js";
-import { closePopup, openPopup } from "../utils/utils.js";
+//import { closePopup, openPopup } from "../utils/utils.js";
 import {
   settings,
   //Open Buttons
@@ -36,8 +36,8 @@ import FormValidator from "../components/FormValidator.js";
 import UserInfo from "../components/UserInfo.js";
 
 //FORM
-const editProfileFormValidator = new FormValidator(settings, formEditProfile);
-const addCardFormValidator = new FormValidator(settings, formAddCard);
+//const editProfileFormValidator = new FormValidator(settings, formEditProfile);
+//const addCardFormValidator = new FormValidator(settings, formAddCard);
 
 //USER
 const userInfo = new UserInfo(
@@ -45,8 +45,8 @@ const userInfo = new UserInfo(
   settings.userJobSelector
 );
 
-editProfileFormValidator.enableValidation();
-addCardFormValidator.enableValidation();
+//editProfileFormValidator.enableValidation();
+//addCardFormValidator.enableValidation();
 
 /***** Function ****/
 const resetInputFormKeydown = (formValidator, model) => {
@@ -56,32 +56,21 @@ const resetInputFormKeydown = (formValidator, model) => {
   formValidator.resettingFormValidation(model);
 };
 
-const figureModel = new PopupWithImage(".popup_type_image"); // Popuos Items
+const popupImage = new PopupWithImage(".popup_type_image"); // Popuos Items
+popupImage.setEventListeners();
 
-const cardsList = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const cardElement = createCard(item);
-      cardsList.addItem(cardElement.generateCard());
-    },
-  },
-  ".cards__list"
-);
 
-let counter = 0;
+
 const createCard = (cardData) => {
-  const card = new Card(cardData, "#card-template", () => {
-  //return new Card(cardData, "#card-template", () => {
-    console.log("ghghgh",++counter);
-    figureModel.open(cardData);
-  });
+  const card = new Card(cardData, "#card-template", () =>{
+    popupImage.open(cardData.link, cardData.name)}
+ );
   return card;
 };
 
 /** Form Submit functions **/
 
-const addCardFormSubmit = (evt) => {
+/*const addCardFormSubmit = (evt) => {
   evt.preventDefault();
   const cardElement = createCard({ name: cardTitleInput.value, link: cardLinkInput.value });
   cardsList.prependItem(cardElement.generateCard());
@@ -99,7 +88,7 @@ const editProfileFormSubmit = (evt) => {
 };
 
 /** Events **/
-/** Open  **/
+/** Open
 editProfileButton.addEventListener("click", () => {
   openPopup(editProfileModel);
   const userData = userInfo.getUserInfo();
@@ -115,7 +104,7 @@ addCardButton.addEventListener("click", () => {
   //resetInputFormKeydown(addCardFormValidator, addCardModel); //call this function when you close exactly the popups with the form with reset the input add card
 });
 
-/** Close  **/
+/** Close
 editModelCloseButton.addEventListener("click", () => {
   //closePopup(editProfileModel);
 });
@@ -129,8 +118,21 @@ addCardModelCloseButton.addEventListener("click", () => {
 
 //figureCloseButton.addEventListener("click", () => closePopup(figureModel));
 
-/** Submit **/
+/** Submit
 formEditProfile.addEventListener("submit", editProfileFormSubmit);
 formAddCard.addEventListener("submit", addCardFormSubmit);
+*/
+
+const cardsList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const cardElement = createCard(item);
+      cardsList.addItem(cardElement.generateCard());
+    },
+  },
+  ".cards__list"
+);
+
 
 cardsList.renderer();

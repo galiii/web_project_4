@@ -2,6 +2,7 @@ export const figureModel = document.querySelector(".popup_type_image"); // Popuo
 export const img = figureModel.querySelector(".popup__image");
 export const caption = figureModel.querySelector(".popup__caption");
 
+
 export const closePopup = (model) => {
   model.removeEventListener("click", closePopupClick);
   model.classList.remove("popup_open");
@@ -17,7 +18,6 @@ const closePopupKeydown = (evt) => {
   }
 };
 
-
 const closePopupClick = (evt) => {
   //Sometimes evt.target and evt.currentTarget are the same thing
   if (evt.target === evt.currentTarget) {
@@ -25,8 +25,8 @@ const closePopupClick = (evt) => {
   }
 };
 
-export const openPopup = (model) => {
+const openPopup = (model) => {
   model.addEventListener("click", closePopupClick);
   model.classList.add("popup_open");
-  //document.addEventListener("keydown", closePopupKeydown);
+  document.addEventListener("keydown", closePopupKeydown);
 };

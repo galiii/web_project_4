@@ -18,6 +18,8 @@ export default class PopupWithForm extends Popup {
       inputValues[input.name] = input.value;
     });
 
+    console.log("hjhjhjhj",inputValues);
+
     return inputValues;
   }
 
@@ -27,8 +29,8 @@ export default class PopupWithForm extends Popup {
     super.setEventListeners();
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      const val = this._getInputValues();
-      console.log("PopupWithForm with set 1",val);
+      //const val = this._getInputValues();
+      //console.log("PopupWithForm with set 1",val);
       //console.log("456",evt.target.value);
       this._submitHandler(this._getInputValues());
       //this._popupElement.close();

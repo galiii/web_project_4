@@ -12,13 +12,13 @@ export default class UserInfo {
     return {name, job};
   };
 
-  setUserInfo = (data) => {
+  setUserInfo = (data) =>{
    //console.log("123 user info");
    //console.log(data.name);
    //console.log(data.job);
     this._userName.textContext = data.name;
     this._userJob.textContext = data.job;
-
+    console.log(this._userName);
     console.log("user info 1",this._userName.textContext);
     console.log("user info 1",this._userJob.textContext);
   };

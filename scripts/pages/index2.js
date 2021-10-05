@@ -13,13 +13,7 @@ const userInfo = new UserInfo(".profile__name", ".profile__job");
 const  nameInput = document.querySelector(".form__input_type_name");
 const jobInput= document.querySelector(".form__input_type_job");
 
-const assignEditValues = () => {
-  const { name, job } = userInfo.getUserInfo();
-  nameInput.value = name;
-  jobInput.value = job;
-};
 
-assignEditValues();
 
 
 
@@ -27,9 +21,9 @@ const editProfileModel = new PopupWithForm(".popup_type_edit-profile",
    ({ name, job }) => {
     nameInput.value = name;
     jobInput.value = job;
-  console.log("789",job,name)
+  console.log("123",job,name)
   userInfo.setUserInfo({ name, job });
-  console.log("789",userInfo.getUserInfo());
+  console.log("456",userInfo.getUserInfo());
   editProfileModel.close();
 });
 
@@ -45,20 +39,20 @@ editProfileFormValidator.enableValidation();
 
 
 editProfileButton.addEventListener('click', () => {
-
   const data = userInfo.getUserInfo();
   const { name, job } = data;
-   console.log("123123",name , job);
+   console.log(`line 50, ${name} , ${job}`);
+   console.log("line 51,",data);
   //document.querySelector(".form__input_type_name").value = name;
   //document.querySelector(".form__input_type_job").value = job;
   editProfileModel.open();
-  userInfo.setUserInfo(data);
+  //userInfo.setUserInfo(data);
  // assignEditValues();
 });
 
 
 
-formEditProfile.addEventListener("submit", editProfileModel);
+//formEditProfile.addEventListener("submit", editProfileModel);
 
 
 

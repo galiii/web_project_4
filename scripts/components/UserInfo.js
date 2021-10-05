@@ -7,7 +7,7 @@ export default class UserInfo {
   getUserInfo = () => {
     const name = this._userName.textContent;
     const job= this._userJob.textContent;
-    //console.log("BBBBBB",name, job );
+    console.log(" getUserInfo",name, job );
     //return { name: this._userName.textContent, job: this._userJob.textContent };
     return {name, job};
   };
@@ -20,6 +20,6 @@ export default class UserInfo {
     this._userJob.textContext = data.job;
     console.log(this._userName);
     console.log("user info 1",this._userName.textContext);
-    console.log("user info 1",this._userJob.textContext);
+    console.log("user info 2",this._userJob.textContext);
   };
 }

@@ -22,12 +22,14 @@ export default class PopupWithForm extends Popup {
   }
 
   setEventListeners() {
-    console.log("123123",this._popupElement);
+    //console.log("123123",this._popupElement);
 
     super.setEventListeners();
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      console.log("456",evt.target.value);
+      const val = this._getInputValues();
+      console.log("PopupWithForm with set 1",val);
+      //console.log("456",evt.target.value);
       this._submitHandler(this._getInputValues());
       //this._popupElement.close();
     });
@@ -35,6 +37,7 @@ export default class PopupWithForm extends Popup {
   }
 
   close() {
+    console.log("PopupWithForm with close 2",this._getInputValues());
     super.close();
     this._formElement.reset();
 

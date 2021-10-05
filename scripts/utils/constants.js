@@ -5,24 +5,43 @@ export const settings = { // pass all the settings on call
   inactiveButtonClass: "form__button_inactive",
   inputErrorClass: "form__input-error_active",
   errorClass: "form__input_error",
-  //User
-  userNameSelector: ".profile__name",
-  userJobSelector: ".profile__job"
-
-
 };
+
+//User Profile
+export const userProfileNameSelector = ".profile__name";
+export const userProfileJobSelector = ".profile__job";
+
+//Popup Image
+export const popupImageSelctor = ".popup_type_image";
+//Popup Form
+export const popupEditProfileSelctor = ".popup_type_edit-profile";
+export const popupAddCardSelctor = ".popup_type_add-card";
+
+//Card Template
+export const cardTemplateSelctor = "#card-template";
+//Card
+export const list = ".cards__list";
+
+
+
+
+//Models
+export const editProfileModel = document.querySelector(".popup_type_edit-profile");
+export const addCardModel = document.querySelector(".popup_type_add-card");
+
+
+//Form
+export const formEditProfile = editProfileModel.querySelector(settings.formSelector);
+export const formAddCard = addCardModel.querySelector(settings.formSelector);
+
 
 
 //Open Buttons
 export const editProfileButton = document.querySelector(".profile__edit-button");
 export const addCardButton = document.querySelector(".profile__add-button");
 
-//Card
-export const list = document.querySelector(".cards__list");
 
-//Models
-export const editProfileModel = document.querySelector(".popup_type_edit-profile");
-export const addCardModel = document.querySelector(".popup_type_add-card");
+
 
 //Close buttons
 export const editModelCloseButton = editProfileModel.querySelector(
@@ -33,11 +52,9 @@ export const addCardModelCloseButton = addCardModel.querySelector(
   ".popup__close-button"
 );
 
-//const figureCloseButton = figureModel.querySelector(".popup__close-button");
 
-//Form
-export const formEditProfile = editProfileModel.querySelector(settings.formSelector);
-export const formAddCard = addCardModel.querySelector(settings.formSelector);
+
+
 
 //Input
 export const profileNameInput = editProfileModel.querySelector(

@@ -1,5 +1,8 @@
+import {settings} from "../utils/constants.js"
+
+
 export default class FormValidator {
-  constructor(settings, formElement) {
+  constructor(formElement) {
     this._settings = settings;
     this._formElement = formElement;
   }

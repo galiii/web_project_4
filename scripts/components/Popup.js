@@ -2,7 +2,7 @@ export default class Popup {
 
   constructor(popupSelector) { //.popup_type_edit-profile
     this._popupElement = document.querySelector(popupSelector);
-    console.log(this._popupElement);
+    //console.log(this._popupElement);
     //if i dont use arrow function this.handleEscClose = this._handleEscClose.bind(this)
     //this._handleEscClose = this._handleEscClose.bind(this);
   }
@@ -26,8 +26,6 @@ export default class Popup {
       this.close();
       console.log("hello");
   };
-
-
 
   open(){
     this._popupElement.classList.add("popup_open");

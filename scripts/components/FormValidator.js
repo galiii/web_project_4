@@ -79,10 +79,10 @@ export default class FormValidator {
   };
 
   resettingFormValidation = (popup) => {
-    const model = document.querySelector(popup);
+    //const model = document.querySelector(popup);
     const { inputSelector, submitButtonSelector } = this._settings;
-    const buttonElement = document.querySelector(submitButtonSelector);
-    const inputList = Array.from(document.querySelectorAll(inputSelector));
+    const buttonElement = popup.querySelector(submitButtonSelector);
+    const inputList = Array.from(popup.querySelectorAll(inputSelector));
 
     if (buttonElement) {
       //inactive the button

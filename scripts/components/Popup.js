@@ -5,7 +5,7 @@ export default class Popup {
     //console.log(this._popupElement);
     //if i dont use arrow function this.handleEscClose = this._handleEscClose.bind(this)
     //this._handleEscClose = this._handleEscClose.bind(this);
-    //this.setEventListeners = this.setEventListeners.bind(this);
+    this.setEventListeners = this.setEventListeners.bind(this);
   }
 
 
@@ -17,15 +17,17 @@ export default class Popup {
   }
 
   _handleClickClose = (evt) => {
+    console.log("123");
     //Sometimes evt.target and evt.currentTarget are the same thing
     if (evt.target === evt.currentTarget) {
+      console.log("456");
       this.close();
     }
   };
 
   _handleButtonClose = () => {
+    console.log("icon");
       this.close();
-      console.log("hello");
   };
 
   open(){
@@ -37,15 +39,16 @@ export default class Popup {
   close () {
     this._popupElement.classList.remove("popup_open");
     document.removeEventListener("keydown", this._handleEscClose);
+    //this._popupElement.removeEventListener("click", this._handleClickClose);
   };
 
   setEventListeners() {
     //for close button icon
     this._popupElement
       .querySelector(".popup__close-button")
-      .addEventListener("click", this._handleClickClose);
+      .addEventListener("click", this._handleButtonClose);
     //for general click
-    //this._popupElement.addEventListener("click", this._handleClickClose);
+    this._popupElement.addEventListener("click", this._handleClickClose);
     //for keydown esc
       document.addEventListener("keydown", this._handleEscClose);
   }

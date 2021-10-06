@@ -9,9 +9,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
 import UserInfo from "../components/UserInfo.js";
 
-
-
-
 //Card
 const createCard = (cardData) => {
   const card = new Card(cardData, "#card-template", () => {

@@ -73,9 +73,9 @@ export default class FormValidator {
       //form.addEventListener("submit", (evt) => evt.preventDefault());
     //});
 
-   /* forms.forEach((form) => {
+   forms.forEach((form) => {
       this._setEventListeners(form, this._settings);
-    });*/
+    });
   };
 
   resettingFormValidation = (popup) => {

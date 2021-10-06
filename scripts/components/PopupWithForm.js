@@ -2,11 +2,11 @@ import Popup  from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
 
-  constructor(popupSelctor, submitHandler) {
-    super(popupSelctor); //this._popupElement
+  constructor(popupSelector, submitHandler) {
+    super(popupSelector); //this._popupElement
     this._submitHandler = submitHandler;
     this._formElement = this._popupElement.querySelector(".form");
-    this.setEventListeners = this.setEventListeners.bind(this);
+    //this.setEventListeners = this.setEventListeners.bind(this);
   }
 
   _getInputValues =() => {
@@ -19,7 +19,7 @@ export default class PopupWithForm extends Popup {
       inputValues[input.name] = input.value;
     });
 
-    console.log("_getInputValues",inputValues);
+    //console.log("_getInputValues",inputValues);
 
     return inputValues;
   }
@@ -27,18 +27,15 @@ export default class PopupWithForm extends Popup {
   setEventListeners() {
     super.setEventListeners();
     this._formElement.addEventListener("submit", (evt) => {
-      evt.preventDefault();
-      //const val = this._getInputValues();
-      //console.log("PopupWithForm with set 1",val);
-      //console.log("456",evt.target.value);
+      evt.preventDefault;
       this._submitHandler(this._getInputValues());
-      //this._popupElement.close();
+
     });
 
   }
 
   close() {
-    console.log("PopupWithForm with close 2",this._getInputValues());
+    //console.log("PopupWithForm with close 2",this._getInputValues);
     super.close();
     this._formElement.reset();
 

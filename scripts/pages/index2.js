@@ -14,16 +14,13 @@ const  nameInput = document.querySelector(".form__input_type_name");
 const jobInput= document.querySelector(".form__input_type_job");
 
 
-
-
-
 const editProfileModel = new PopupWithForm(".popup_type_edit-profile",
    ({ name, job }) => {
-    nameInput.value = name;
-    jobInput.value = job;
-  console.log("123",job,name)
+    nameInput.value = name.textContent;
+    jobInput.value = job.textContent;
+  //console.log("123",job,name)
   userInfo.setUserInfo({ name, job });
-  console.log("456",userInfo.getUserInfo());
+  //console.log("456",userInfo.getUserInfo());
   editProfileModel.close();
 });
 
@@ -43,11 +40,14 @@ editProfileButton.addEventListener('click', () => {
   const { name, job } = data;
    console.log(`line 50, ${name} , ${job}`);
    console.log("line 51,",data);
+   nameInput.value = name;
+   jobInput.value = job;
   //document.querySelector(".form__input_type_name").value = name;
   //document.querySelector(".form__input_type_job").value = job;
   editProfileModel.open();
+  //editProfileFormValidator.resettingFormValidation(".popup_type_edit-profile");
   //userInfo.setUserInfo(data);
- // assignEditValues();
+
 });
 
 

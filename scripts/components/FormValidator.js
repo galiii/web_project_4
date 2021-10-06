@@ -69,19 +69,20 @@ export default class FormValidator {
     const forms = Array.from(document.querySelectorAll(formSelector));
 
     //prevent their default behaviour
-    forms.forEach((form) => {
-      form.addEventListener("submit", (evt) => evt.preventDefault());
-    });
+    //forms.forEach((form) => {
+      //form.addEventListener("submit", (evt) => evt.preventDefault());
+    //});
 
-    forms.forEach((form) => {
+   /* forms.forEach((form) => {
       this._setEventListeners(form, this._settings);
-    });
+    });*/
   };
 
-  resettingFormValidation = (model) => {
+  resettingFormValidation = (popup) => {
+    const model = document.querySelector(popup);
     const { inputSelector, submitButtonSelector } = this._settings;
-    const buttonElement = model.querySelector(submitButtonSelector);
-    const inputList = Array.from(model.querySelectorAll(inputSelector));
+    const buttonElement = document.querySelector(submitButtonSelector);
+    const inputList = Array.from(document.querySelectorAll(inputSelector));
 
     if (buttonElement) {
       //inactive the button

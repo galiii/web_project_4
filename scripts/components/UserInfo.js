@@ -6,20 +6,16 @@ export default class UserInfo {
 
   getUserInfo = () => {
     const name = this._userName.textContent;
-    const job= this._userJob.textContent;
-    console.log(" getUserInfo",name, job );
+    const job = this._userJob.textContent;
+
     //return { name: this._userName.textContent, job: this._userJob.textContent };
     return {name, job};
   };
 
   setUserInfo = (data) =>{
-   //console.log("123 user info");
-   //console.log(data.name);
-   //console.log(data.job);
-    this._userName.textContext = data.name;
-    this._userJob.textContext = data.job;
-    console.log(this._userName);
-    console.log("user info 1",this._userName.textContext);
-    console.log("user info 2",this._userJob.textContext);
+    const {name ,job} = data;
+    console.log(data);
+    this._userName.textContent = name;
+    this._userJob.textContent = job;
   };
 }

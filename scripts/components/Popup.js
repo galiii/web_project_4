@@ -5,7 +5,7 @@ export default class Popup {
     //console.log(this._popupElement);
     //if i dont use arrow function this.handleEscClose = this._handleEscClose.bind(this)
     //this._handleEscClose = this._handleEscClose.bind(this);
-    this.setEventListeners = this.setEventListeners.bind(this);
+    //this.setEventListeners = this.setEventListeners.bind(this);
   }
 
 

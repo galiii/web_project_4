@@ -1,5 +1,27 @@
+import "./index.css"
+//import profileImg
+
 //data
 import initialCards from "../utils/cards.js";
+
+//selectors
+import {
+  cardTemplate, //#card-template
+  cardListSelector, //.cards__list
+  nameProfileUserSelector, //.profile__name
+  jobProfileUserSelector, //.profile__job
+  editProfilePopupSelector, //.popup_type_edit-profile
+  addCardPopupSelector, //.popup_type_add-card
+  imagePopupSelector, //.popup_type_image
+  nameProfileEditInput, //.form__input_type_name query selector
+  jobProfileEditInput, //.form__input_type_job query selector
+  editProfileButton, // .profile__edit-button query selector
+  addCardButton, // .profile__add-button query selector
+  editProfileModel, //.popup_type_edit-profile query selector
+  addCardModel, // .popup_type_add-card query selector
+  formEditProfile, //.form query selector
+  formAddCard, //.form query selector
+} from "../utils/constants.js";
 
 //components
 import Section from "../components/Section.js";
@@ -11,7 +33,7 @@ import UserInfo from "../components/UserInfo.js";
 
 //Card
 const createCard = (cardData) => {
-  const card = new Card(cardData, "#card-template", () => {
+  const card = new Card(cardData, cardTemplate, () => {
     imagePopup.open(cardData.link, cardData.name);
   });
   return card;
@@ -26,48 +48,34 @@ const cardsList = new Section(
       cardsList.addItem(cardElement.generateCard());
     },
   },
-  ".cards__list"
+  cardListSelector
 );
 
-
-//Buttons
-const editProfileButton = document.querySelector(".profile__edit-button");
-const addCardButton = document.querySelector(".profile__add-button");
-
 //User Instance
-const userInfo = new UserInfo(".profile__name", ".profile__job");
+const userInfo = new UserInfo(nameProfileUserSelector, jobProfileUserSelector);
 
-//Inputs edit
-const nameInput = document.querySelector(".form__input_type_name");
-const jobInput = document.querySelector(".form__input_type_job");
 //add
-
 const titleInput = document.querySelector(".form__input_type_card-title");
 const linkInput = document.querySelector(".form__input_type_card-link");
 
-const editProfilePopup = new PopupWithForm(
-  ".popup_type_edit-profile",
-  (data) => {
-    nameInput.value = data.name.textContent;
-    jobInput.value = data.job.textContent;
-    userInfo.setUserInfo({ name: data.name, job: data.job });
-    editProfilePopup.close();
-  }
-);
+const editProfilePopup = new PopupWithForm(editProfilePopupSelector, (data) => {
+  nameProfileEditInput.value = data.name.textContent;
+  jobProfileEditInput.value = data.job.textContent;
+  userInfo.setUserInfo({ name: data.name, job: data.job });
+  editProfilePopup.close();
+});
 
-const addCardPopup = new PopupWithForm(".popup_type_add-card",
-(data) => {
+const addCardPopup = new PopupWithForm(addCardPopupSelector, (data) => {
   //reset
   //titleInput.value = "";
   //linkInput.value = "";
   console.log(data["card-title"], data["card-link"]);
   const c = createCard({ name: data["card-title"], link: data["card-link"] });
-  console.log("789",c);
   cardsList.prependItem(c.generateCard());
   addCardPopup.close();
 });
 
-const imagePopup = new PopupWithImage(".popup_type_image");
+const imagePopup = new PopupWithImage(imagePopupSelector);
 
 //Set popup
 editProfilePopup.setEventListeners();
@@ -75,13 +83,6 @@ addCardPopup.setEventListeners();
 imagePopup.setEventListeners();
 
 //FormValidator
-const editProfileModel = document.querySelector(".popup_type_edit-profile");
-const formEditProfile = editProfileModel.querySelector(".form");
-
-
-  const addCardModel = document.querySelector(".popup_type_add-card");
-const formAddCard = addCardModel.querySelector(".form");
-
 const editProfileFormValidator = new FormValidator(formEditProfile);
 const addCardFormValidator = new FormValidator(formAddCard);
 
@@ -93,23 +94,17 @@ editProfileButton.addEventListener("click", () => {
   editProfileFormValidator.resettingFormValidation(editProfileModel);
   const data = userInfo.getUserInfo();
   const { name, job } = data;
-  nameInput.value = name;
-  jobInput.value = job;
+  nameProfileEditInput.value = name;
+  jobProfileEditInput.value = job;
   editProfilePopup.open();
-
 });
 
 addCardButton.addEventListener("click", () => {
   addCardFormValidator.resettingFormValidation(addCardModel);
-  console.log("hello 456");
   addCardPopup.open();
-
 });
 
-
 cardsList.renderer();
-
-
 
 /*
 import {

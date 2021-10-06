@@ -7,22 +7,32 @@ export const settings = { // pass all the settings on call
   errorClass: "form__input_error",
 };
 
-//User Profile
-export const userProfileNameSelector = ".profile__name";
-export const userProfileJobSelector = ".profile__job";
-
-//Popup Image
-export const popupImageSelector = ".popup_type_image";
-//Popup Form
-export const popupEditProfileSelector = ".popup_type_edit-profile";
-export const popupAddCardSelector = ".popup_type_add-card";
 
 //Card Template
-export const cardTemplateSelector = "#card-template";
-//Card
-export const list = ".cards__list";
+export const  cardTemplate = "#card-template";
+
+//Card List
+export const cardListSelector = ".cards__list";
+
+//User Profile
+export const nameProfileUserSelector = ".profile__name";
+export const jobProfileUserSelector = ".profile__job";
 
 
+//Popup
+export const editProfilePopupSelector = ".popup_type_edit-profile";
+export const addCardPopupSelector = ".popup_type_add-card";
+export const imagePopupSelector = ".popup_type_image";
+
+
+//Input
+export const nameProfileEditInput = document.querySelector(".form__input_type_name");
+export const jobProfileEditInput = document.querySelector(".form__input_type_job");
+
+
+//Open Buttons
+export const editProfileButton = document.querySelector(".profile__edit-button");
+export const addCardButton = document.querySelector(".profile__add-button");
 
 
 //Models
@@ -36,9 +46,7 @@ export const formAddCard = addCardModel.querySelector(settings.formSelector);
 
 
 
-//Open Buttons
-export const editProfileButton = document.querySelector(".profile__edit-button");
-export const addCardButton = document.querySelector(".profile__add-button");
+
 
 
 

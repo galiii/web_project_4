@@ -1,5 +1,4 @@
-import {settings} from "../utils/constants.js"
-
+import { settings } from "../utils/constants.js";
 
 export default class FormValidator {
   constructor(formElement) {
@@ -69,11 +68,11 @@ export default class FormValidator {
     const forms = Array.from(document.querySelectorAll(formSelector));
 
     //prevent their default behaviour
-    //forms.forEach((form) => {
-      //form.addEventListener("submit", (evt) => evt.preventDefault());
-    //});
+    forms.forEach((form) => {
+      form.addEventListener("submit", (evt) => evt.preventDefault());
+    });
 
-   forms.forEach((form) => {
+    forms.forEach((form) => {
       this._setEventListeners(form, this._settings);
     });
   };

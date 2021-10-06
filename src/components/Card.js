@@ -1,16 +1,13 @@
-
-
 export default class Card {
   constructor(cardData, cardSelector, handleCardClick) {
     //private
-   // console.log(cardData);
     this._name = cardData.name;
     this._link = cardData.link;
     this._cardSelector = cardSelector;
     this._cardTemplate = document
       .querySelector(this._cardSelector) //#card-template
       .content.querySelector(".card");
-      this._handleCardClick = handleCardClick;
+    this._handleCardClick = handleCardClick;
   }
 
   //privates methods
@@ -42,13 +39,12 @@ export default class Card {
   /** Image Property click Event **/
   _createFigurePopup = (imageElement) => {
     //console.log("hello 123");
-    imageElement.addEventListener("click",this._handleCardClick);
+    imageElement.addEventListener("click", this._handleCardClick);
   };
 
   _setEventListeners = (cardElement, imageElement) => {
     const deleteButton = cardElement.querySelector(".card__delete");
     const like = cardElement.querySelector(".card__like");
-
 
     this._deleteCard(deleteButton); //Delete Property click Event
     this._createLike(like); //Like Property click Event

@@ -1,16 +1,14 @@
+import { imageSelector, captionSelector } from "../utils/constants";
 import Popup from "./Popup.js";
 
 export default class PopupWithImage extends Popup {
-
   open(link, text) {
-    console.log("hjghghghg");
-
-    const imgElement = this._popupElement.querySelector(".popup__image");
-    const captionElement = this._popupElement.querySelector(".popup__caption");
+    const imageElement = this._popupElement.querySelector(imageSelector); //.popup__image
+    const captionElement = this._popupElement.querySelector(captionSelector); //.popup__caption
 
     //Image properties
-    imgElement.src = link;
-    imgElement.alt = text;
+    imageElement.src = link;
+    imageElement.alt = text;
 
     //Figcaption properties
     captionElement.ariaLabel = text;
@@ -18,7 +16,3 @@ export default class PopupWithImage extends Popup {
     super.open();
   }
 }
-
-
-//const popupImage = new PopupWithImage('.popup_type_image');
-//popupImage.open("https://code.s3.yandex.net/web-code/lake-louise.jpg","world");

@@ -29,6 +29,7 @@ export default class PopupWithForm extends Popup {
     this._formElement.addEventListener("submit", (evt) => {
       evt.preventDefault;
       this._submitHandler(this._getInputValues());
+      console.log(this._submitHandler);
 
     });
 
@@ -42,10 +43,3 @@ export default class PopupWithForm extends Popup {
   }
 }
 
-const profileNameInput = "";//document.querySelector(".popup_type_edit-profile");
-const profileJobInput = "";
-
-/*const editModel = new PopupWithForm(".popup_type_edit-profile", (data) => {
-  profileNameInput.textContext = data.name;
-  profileJobInput.textContext = data.job;
-});*/

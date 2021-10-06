@@ -3,6 +3,7 @@
 export default class Card {
   constructor(cardData, cardSelector, handleCardClick) {
     //private
+   // console.log(cardData);
     this._name = cardData.name;
     this._link = cardData.link;
     this._cardSelector = cardSelector;

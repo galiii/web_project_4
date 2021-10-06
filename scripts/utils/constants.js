@@ -12,13 +12,13 @@ export const userProfileNameSelector = ".profile__name";
 export const userProfileJobSelector = ".profile__job";
 
 //Popup Image
-export const popupImageSelctor = ".popup_type_image";
+export const popupImageSelector = ".popup_type_image";
 //Popup Form
-export const popupEditProfileSelctor = ".popup_type_edit-profile";
-export const popupAddCardSelctor = ".popup_type_add-card";
+export const popupEditProfileSelector = ".popup_type_edit-profile";
+export const popupAddCardSelector = ".popup_type_add-card";
 
 //Card Template
-export const cardTemplateSelctor = "#card-template";
+export const cardTemplateSelector = "#card-template";
 //Card
 export const list = ".cards__list";
 

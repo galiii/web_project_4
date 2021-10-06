@@ -13,8 +13,15 @@ const editProfileButton = document.querySelector(".profile__edit-button");
 
 //User Instance
 const userInfo = new UserInfo(".profile__name", ".profile__job");
+
+//Inputs edit
 const  nameInput = document.querySelector(".form__input_type_name");
 const jobInput= document.querySelector(".form__input_type_job");
+//add
+const titleInput = addCardModel.querySelector(".form__input_type_card-title");
+const cardLinkInput = addCardModel.querySelector(".form__input_type_card-link");
+
+
 
 const assignEditValues = () => {
   const { name, job } = userInfo.getUserInfo();
@@ -62,26 +69,6 @@ editProfileButton.addEventListener('click', () => {
 
 
 
-
-//Card
-const createCard = (cardData) => {
-  const card = new Card(cardData, "#card-template", () => {
-    popupImage.open(cardData.link, cardData.name);
-  });
-  return card;
-};
-
-const cardsList = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const cardElement = createCard(item);
-      cardsList.addItem(cardElement.generateCard());
-    },
-  },
-  ".cards__list"
-);
-cardsList.renderer();
 
 
 

@@ -45,6 +45,6 @@ export default class Popup {
     //for general click
     this._popupElement.addEventListener("click", this._handleClickClose);
     //for keydown esc
-    document.addEventListener("keydown", this._handleEscClose);
+    //document.addEventListener("keydown", this._handleEscClose);
   }
 }

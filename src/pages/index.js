@@ -102,5 +102,20 @@ addCardButton.addEventListener("click", () => {
   addCardPopup.open();
 });
 
+function testRec() {
+  fetch("https://around.nomoreparties.co/v1/group-12/cards", {
+  headers: {
+    authorization: "9bc9c0f1-5a8a-40aa-b985-20e7b24d1389"
+  }
+})
+  .then(res => res.json())
+  .then((result) => {
+    console.log(result);
+  });
+}
+
 //Show list of cards
 cardsList.renderer();
+testRec();
+
+

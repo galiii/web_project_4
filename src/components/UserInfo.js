@@ -15,12 +15,13 @@ export default class UserInfo {
   };
 
   setUserInfo = (data) => {
-    const { name, job, avatar } = data;
-    console.log(data);
+    const { name, job } = data;
+   const avatar = data.avatar;
     this._userName.textContent = name;
     this._userJob.textContent = job;
 
-    this._userImage.src = avatar.src;
+    this._userImage.src = avatar;
+    console.log("hello",data)
     this._userImage.alt = "some check";
   };
 }

@@ -17,6 +17,7 @@ export const cardListSelector = ".cards__list";
 //User Profile
 export const nameProfileUserSelector = ".profile__name";
 export const jobProfileUserSelector = ".profile__job";
+export const imageProfileUserSelector = ".profile__image";
 
 //Popup
 export const editProfilePopupSelector = ".popup_type_edit-profile";

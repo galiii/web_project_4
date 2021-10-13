@@ -9,7 +9,7 @@ import {
   cardListSelector, //.cards__list
   nameProfileUserSelector, //.profile__name
   jobProfileUserSelector, //.profile__job
-  imageProfileUserSelector,// .profile__image
+  imageProfileUserSelector, // .profile__image
   editProfilePopupSelector, //.popup_type_edit-profile
   addCardPopupSelector, //.popup_type_add-card
   imagePopupSelector, //.popup_type_image
@@ -30,12 +30,37 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
 import UserInfo from "../components/UserInfo.js";
-import {  api2 } from "../components/Api.js";
-
-
+import { api2 } from "../components/Api.js";
 
 //User Instance
-const userInfo = new UserInfo(nameProfileUserSelector, jobProfileUserSelector, imageProfileUserSelector);
+const userInfo = new UserInfo(
+  nameProfileUserSelector,
+  jobProfileUserSelector,
+  imageProfileUserSelector
+);
+
+//Card Instance
+const createCard = (cardData) => {
+  const card = new Card(cardData, cardTemplate, () => {
+    imagePopup.open(cardData.link, cardData.name);
+  });
+  return card;
+};
+
+//Section
+const createSection = (cardArray) => {
+  const cards = new Section(
+    {
+      items: cardArray,
+      renderer: (item) => {
+        const cardElement = createCard(item);
+        cards.addItem(cardElement.generateCard());
+      },
+    },
+    cardListSelector
+  );
+  return cards;
+};
 
 /*
 {
@@ -46,21 +71,29 @@ const userInfo = new UserInfo(nameProfileUserSelector, jobProfileUserSelector, i
   "cohort": "group-42"
 }
 */
-api2.getAllInformation()
-.then(([userApiRes, cardsApiRes]) => {
-  console.log("USER",userApiRes['avatar']); // ["First promise", "Second promise"]
-  console.log("CARDS LIST",cardsApiRes)
-}).catch(err => {
-  console.log(err);
-}) ;
+api2
+  .getAllInformation()
+  .then(([userApiRes, cardsApiRes]) => {
+    // ["First promise", "Second promise"]
 
-//Card Instance
-const createCard = (cardData) => {
-  const card = new Card(cardData, cardTemplate, () => {
-    imagePopup.open(cardData.link, cardData.name);
+    userInfo.setUserInfo({
+      name: userApiRes["name"],
+      job: userApiRes["about"],
+      avatar: userApiRes["avatar"],
+    });
+
+    console.log("CARDS LIST", cardsApiRes);
+    console.log(cardsApiRes.length);
+
+    //Section Instance
+    const cardsList = createSection(cardsApiRes);
+
+    //Show list of cards
+    cardsList.renderer();
+  })
+  .catch((err) => {
+    console.log(err);
   });
-  return card;
-};
 
 /*api instance
 api
@@ -99,22 +132,6 @@ api
   });
 
 */
-
-
-
-//Section Instance
-const cardsList = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const cardElement = createCard(item);
-      cardsList.addItem(cardElement.generateCard());
-    },
-  },
-  cardListSelector
-);
-
-
 
 //Popup Instances
 const editProfilePopup = new PopupWithForm(editProfilePopupSelector, (data) => {
@@ -162,10 +179,3 @@ addCardButton.addEventListener("click", () => {
   addCardFormValidator.resettingFormValidation(addCardModel);
   addCardPopup.open();
 });
-
-
-
-//Show list of cards
-cardsList.renderer();
-
-

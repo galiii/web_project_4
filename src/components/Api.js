@@ -12,11 +12,7 @@ class Api {
     );
   }
 
-  _handleResponse(res){
-    console.log("hello response api", res);
-    // if the server returns an error, reject the promise
-    return res.ok ? res.json() : Promise.reject(`Error: ${res.status}`);
-  };
+
 
   getAllInformation = () => {
     return Promise.all([this.getUserInformation(), this.getCardList()]);
@@ -55,7 +51,7 @@ class Api {
         name,
         link,
       }),
-    }).then(this._handleResponse(res));
+    }).then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
   };
 
   //7. Deleting a Card
@@ -66,7 +62,7 @@ class Api {
         authorization: this._token,
         "Content-Type": "application/json",
       },
-    }).then(this._handleResponse(res));
+    }).then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
   };
 
 
@@ -78,7 +74,7 @@ class Api {
         authorization: this._token,
         "Content-Type": "application/json",
       },
-    }).then(this._handleResponse(res));
+    }).then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
   }
 
   likeCard = (cardId) => {
@@ -88,7 +84,7 @@ class Api {
         authorization: this._token,
         "Content-Type": "application/json",
       },
-    }).then(this._handleResponse(res));
+    }).then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
   }
 
   //3. Editing the Profile
@@ -103,7 +99,7 @@ class Api {
         name,
         about: job,
       }),
-    }).then(this._handleResponse(res));
+    }).then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
   };
 
   //9. Updating Profile Picture
@@ -117,7 +113,7 @@ class Api {
       body: JSON.stringify({
         avatar,
       }),
-    }).then(this._handleResponse(res));
+    }).then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
   };
 
 }

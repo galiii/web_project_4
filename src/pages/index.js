@@ -62,15 +62,7 @@ const createSection = (cardArray) => {
   return cards;
 };
 
-/*
-{
-  "name": "Jacques Cousteau",
-  "about": "Sailor, researcher",
-  "avatar": "https://pictures.s3.yandex.net/frontend-developer/ava.jpg",
-  "_id": "e20537ed11237f86bbb20ccb",
-  "cohort": "group-42"
-}
-*/
+
 api2
   .getAllInformation()
   .then(([userApiRes, cardsApiRes]) => {
@@ -95,43 +87,7 @@ api2
     console.log(err);
   });
 
-/*api instance
-api
-  .getInitialCards()
-  .then((result) => {
-    // process the result
-  })
-  .catch((err) => {
-    console.log(err); // log the error to the console
-  });
 
-  /*
-  {
-    "likes": [],
-    "_id": "5d1f064ed321eb4bdcd707de",
-    "name": "Lake Louise",
-    "link": "https://code.s3.yandex.net/web-code/lake-louise.jpg",
-    "owner": {
-      "name": "Jacques Cousteau",
-      "about": "Sailor, researcher",
-      "avatar": "https://code.s3.yandex.net/web-code/avatar.jpg",
-      "_id": "ef5f7423f7f5e22bef4ad607",
-      "cohort": "group-42"
-    },
-    "createdAt": "2019-07-05T08:11:58.324Z"
-  }
-*/
-/*
-api
-  .getInitialUserInformation()
-  .then((result) => {
-    // process the result
-  })
-  .catch((err) => {
-    console.log(err); // log the error to the console
-  });
-
-*/
 
 //Popup Instances
 const editProfilePopup = new PopupWithForm(editProfilePopupSelector, (data) => {

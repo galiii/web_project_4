@@ -9,6 +9,7 @@ import {
   cardListSelector, //.cards__list
   nameProfileUserSelector, //.profile__name
   jobProfileUserSelector, //.profile__job
+  imageProfileUserSelector,// .profile__image
   editProfilePopupSelector, //.popup_type_edit-profile
   addCardPopupSelector, //.popup_type_add-card
   imagePopupSelector, //.popup_type_image
@@ -34,12 +35,20 @@ import {  api2 } from "../components/Api.js";
 
 
 //User Instance
-const userInfo = new UserInfo(nameProfileUserSelector, jobProfileUserSelector);
+const userInfo = new UserInfo(nameProfileUserSelector, jobProfileUserSelector, imageProfileUserSelector);
 
-
+/*
+{
+  "name": "Jacques Cousteau",
+  "about": "Sailor, researcher",
+  "avatar": "https://pictures.s3.yandex.net/frontend-developer/ava.jpg",
+  "_id": "e20537ed11237f86bbb20ccb",
+  "cohort": "group-42"
+}
+*/
 api2.getAllInformation()
 .then(([userApiRes, cardsApiRes]) => {
-  console.log("USER",userApiRes); // ["First promise", "Second promise"]
+  console.log("USER",userApiRes['avatar']); // ["First promise", "Second promise"]
   console.log("CARDS LIST",cardsApiRes)
 }).catch(err => {
   console.log(err);
@@ -89,13 +98,7 @@ api
     console.log(err); // log the error to the console
   });
 
-/*{
-  "name": "Jacques Cousteau",
-  "about": "Sailor, researcher",
-  "avatar": "https://pictures.s3.yandex.net/frontend-developer/ava.jpg",
-  "_id": "e20537ed11237f86bbb20ccb",
-  "cohort": "group-42"
-}*/
+*/
 
 
 

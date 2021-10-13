@@ -29,6 +29,21 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
 import UserInfo from "../components/UserInfo.js";
+import {  api2 } from "../components/Api.js";
+
+
+
+//User Instance
+const userInfo = new UserInfo(nameProfileUserSelector, jobProfileUserSelector);
+
+
+api2.getAllInformation()
+.then(([userApiRes, cardsApiRes]) => {
+  console.log("USER",userApiRes); // ["First promise", "Second promise"]
+  console.log("CARDS LIST",cardsApiRes)
+}).catch(err => {
+  console.log(err);
+}) ;
 
 //Card Instance
 const createCard = (cardData) => {
@@ -37,6 +52,52 @@ const createCard = (cardData) => {
   });
   return card;
 };
+
+/*api instance
+api
+  .getInitialCards()
+  .then((result) => {
+    // process the result
+  })
+  .catch((err) => {
+    console.log(err); // log the error to the console
+  });
+
+  /*
+  {
+    "likes": [],
+    "_id": "5d1f064ed321eb4bdcd707de",
+    "name": "Lake Louise",
+    "link": "https://code.s3.yandex.net/web-code/lake-louise.jpg",
+    "owner": {
+      "name": "Jacques Cousteau",
+      "about": "Sailor, researcher",
+      "avatar": "https://code.s3.yandex.net/web-code/avatar.jpg",
+      "_id": "ef5f7423f7f5e22bef4ad607",
+      "cohort": "group-42"
+    },
+    "createdAt": "2019-07-05T08:11:58.324Z"
+  }
+*/
+/*
+api
+  .getInitialUserInformation()
+  .then((result) => {
+    // process the result
+  })
+  .catch((err) => {
+    console.log(err); // log the error to the console
+  });
+
+/*{
+  "name": "Jacques Cousteau",
+  "about": "Sailor, researcher",
+  "avatar": "https://pictures.s3.yandex.net/frontend-developer/ava.jpg",
+  "_id": "e20537ed11237f86bbb20ccb",
+  "cohort": "group-42"
+}*/
+
+
 
 //Section Instance
 const cardsList = new Section(
@@ -50,8 +111,7 @@ const cardsList = new Section(
   cardListSelector
 );
 
-//User Instance
-const userInfo = new UserInfo(nameProfileUserSelector, jobProfileUserSelector);
+
 
 //Popup Instances
 const editProfilePopup = new PopupWithForm(editProfilePopupSelector, (data) => {
@@ -63,8 +123,6 @@ const editProfilePopup = new PopupWithForm(editProfilePopupSelector, (data) => {
 
 const addCardPopup = new PopupWithForm(addCardPopupSelector, (data) => {
   //reset
-  //titleInput.value = "";
-  //linkInput.value = "";
   const card = createCard({
     name: data["card-title"],
     link: data["card-link"],
@@ -102,20 +160,9 @@ addCardButton.addEventListener("click", () => {
   addCardPopup.open();
 });
 
-function testRec() {
-  fetch("https://around.nomoreparties.co/v1/group-12/cards", {
-  headers: {
-    authorization: "9bc9c0f1-5a8a-40aa-b985-20e7b24d1389"
-  }
-})
-  .then(res => res.json())
-  .then((result) => {
-    console.log(result);
-  });
-}
+
 
 //Show list of cards
 cardsList.renderer();
-testRec();
 
 

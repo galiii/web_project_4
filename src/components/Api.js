@@ -1,125 +1,100 @@
+const customFetch = (url, headers) =>
+  fetch(url, headers)
+    .then((res) =>
+      res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
+    )
+    .catch(console.error);
+
 class Api {
-  constructor({ baseUrl, groupId, authorization }) {
+  constructor({ baseUrl, headers }) {
     // constructor body
-    this._url = baseUrl;
-    this._groupId = groupId;
-    this._token = authorization;
+    this._baseUrl = baseUrl;
+    this._headers = headers;
   }
 
   test() {
-    console.log(
-      `url: ${this._url} and token ${this._token} and groupId ${this._groupId}`
-    );
+    console.log(`url: ${this._baseUrl} and token ${this._headers} `);
   }
-
-
 
   getAllInformation = () => {
-    return Promise.all([this.getUserInformation(), this.getCardList()]);
-  }
-
-  // 1. Loading User Information from the Server
-  getUserInformation = () => {
-    return fetch(`${this._url}/${this._groupId}/users/me`, {
-      headers: {
-        authorization: this._token,
-      },
-    }).then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
+    return Promise.all([this.getUserInfo(), this.getCardList()]);
   };
 
-  //2. Loading Cards from the Server
-  getCardList = () => {
-    return fetch(`${this._url}/${this._groupId}/cards`, {
-      headers: {
-        authorization: this._token,
-      },
-    }).then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
+  // Loading User Information from the Server
+  getUserInfo = () => {
+    return customFetch(`${this._baseUrl}/users/me`, {
+      headers: this._headers,
+    });
+  };
+
+  // Loading Cards from the Server
+  getInitialCards = () => {
+    return customFetch(`${this._baseUrl}/cards`, {
+      headers: this._headers,
+    });
   };
 
   // other methods for working with the API
 
-  /* Card Methods */
-  //4. Adding a New Card
-  addCard = ({ name, link }) => {
-    return fetch(`${this._url}/${this._groupId}/cards`, {
+  // Adding a New Card
+  addCard = (data) => {
+    return customFetch(`${this._baseUrl}/cards`, {
+      headers: this._headers,
       method: "POST",
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        link,
-      }),
-    }).then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
+      body: JSON.stringify(data),
+    });
   };
 
-  //7. Deleting a Card
+  // Deleting a Card
   deleteCard = (cardId) => {
-    return fetch(`${this._url}/${this._groupId}/cards/${cardId}`, {
+    return customFetch(`${this._baseUrl}/cards/${cardId}`, {
+      headers: this._headers,
       method: "DELETE",
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
-    }).then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
+    });
   };
 
-
-  //8. Adding and Removing Likes
+  // Adding  Likes
   likeCard = (cardId) => {
-    return fetch(`${this._url}/${this._groupId}/cards/likes/${cardId}`, {
-      method: "PUT",
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
-    }).then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
-  }
+    return customFetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      headers: this._headers,
+      method: "PUT"
+    });
+  };
 
-  likeCard = (cardId) => {
-    return fetch(`${this._url}/${this._groupId}/cards/likes/${cardId}`, {
-      method: "DELETE",
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
-    }).then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
-  }
+  // Removing Likes
+  dislikeCard = (cardId) => {
+    return customFetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+      headers: this._headers,
+      method: "DELETE"
+    });
+  };
 
-  //3. Editing the Profile
-  editUserInfo = ({ name, job }) => {
-    return fetch(`${this._url}/${this._groupId}/users/me`, {
+  // Editing the Profile
+  editProfileUserInfo = ({ name, job }) => {
+    return customFetch(`${this._baseUrl}/users/me`, {
+      headers: this._headers,
       method: "PATCH",
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
       body: JSON.stringify({
         name,
         about: job,
-      }),
-    }).then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
+      })
+    });
   };
 
-  //9. Updating Profile Picture
+  // Updating Profile Picture
   updateUserImage = (avatar) => {
-    return fetch(`${this._url}/${this._groupId}/users/me/avatar`, {
+    return customFetch(`${this._baseUrl}/users/me/avatar`, {
+      headers: this._headers,
       method: "PATCH",
-      headers: {
-        authorization: this._token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        avatar,
-      }),
-    }).then(res => res.ok ? res.json() : Promise.reject(`Error: ${res.status}`));
+      body: JSON.stringify(avatar),
+    });
   };
-
 }
 
 export const api2 = new Api({
-  baseUrl: "https://around.nomoreparties.co/v1",
-  groupId: "group-12",
-  authorization: "9bc9c0f1-5a8a-40aa-b985-20e7b24d1389",
+  baseUrl: "https://around.nomoreparties.co/v1/group-12",
+  headers: {
+    authorization: "9bc9c0f1-5a8a-40aa-b985-20e7b24d1389",
+    "Content-Type": "application/json",
+  },
 });

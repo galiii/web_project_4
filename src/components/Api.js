@@ -1,9 +1,9 @@
-const customFetch = (url, headers) =>
-  fetch(url, headers)
+const customFetch = (url, headers) =>  fetch(url, headers)
     .then((res) =>
       res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
     )
     .catch(console.error);
+
 
 class Api {
   constructor({ baseUrl, headers }) {
@@ -41,7 +41,10 @@ class Api {
     return customFetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
       method: "POST",
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        name: data["card-title"],
+        link: data["card-link"],
+      }),
     });
   };
 
@@ -91,7 +94,7 @@ class Api {
   };
 }
 
-export const api2 = new Api({
+export const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-12",
   headers: {
     authorization: "9bc9c0f1-5a8a-40aa-b985-20e7b24d1389",

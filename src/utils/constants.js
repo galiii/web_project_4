@@ -22,6 +22,8 @@ export const imageProfileUserSelector = ".profile__image";
 //Popup
 export const editProfilePopupSelector = ".popup_type_edit-profile";
 export const addCardPopupSelector = ".popup_type_add-card";
+export const deleteCardPopupSelector = ".popup_type_delete-card";
+
 export const imagePopupSelector = ".popup_type_image";
 
 //Image popup

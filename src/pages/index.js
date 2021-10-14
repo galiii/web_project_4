@@ -12,6 +12,7 @@ import {
   imageProfileUserSelector, // .profile__image
   editProfilePopupSelector, //.popup_type_edit-profile
   addCardPopupSelector, //.popup_type_add-card
+  deleteCardPopupSelector, // .popup_type_delete-card
   imagePopupSelector, //.popup_type_image
   nameProfileEditInput, //.form__input_type_name query selector
   jobProfileEditInput, //.form__input_type_job query selector
@@ -28,9 +29,13 @@ import Section from "../components/Section.js";
 import Card from "../components/Card.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithSubmit from "../components/PopupWithSubmit.js";
 import FormValidator from "../components/FormValidator.js";
 import UserInfo from "../components/UserInfo.js";
-import { api2 } from "../components/Api.js";
+import { api } from "../components/Api.js";
+
+
+let userId; //undefined
 
 //User Instance
 const userInfo = new UserInfo(
@@ -47,46 +52,40 @@ const createCard = (cardData) => {
   return card;
 };
 
-//Section
-const createSection = (cardArray) => {
-  const cards = new Section(
+ //Section Instance
+const createSection = () => {
+  const cardList = new Section(
     {
-      items: cardArray,
+      //items: cardsData,
       renderer: (item) => {
         const cardElement = createCard(item);
-        cards.addItem(cardElement.generateCard());
+        cardList.addItem(cardElement.generateCard());
       },
     },
     cardListSelector
   );
-  return cards;
+  return cardList;
 };
 
+const cardsList = createSection(); //for reload
 
-api2
-  .getAllInformation()
-  .then(([userApiRes, cardsApiRes]) => {
-    // ["First promise", "Second promise"]
+
+Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
+  ([userData, cardData]) => {
+    userId = userData._id;
 
     userInfo.setUserInfo({
-      name: userApiRes["name"],
-      job: userApiRes["about"],
-      avatar: userApiRes["avatar"],
+      name: userData["name"],
+      job: userData["about"],
+      avatar: userData["avatar"],
     });
 
-    console.log("CARDS LIST", cardsApiRes);
-    console.log(cardsApiRes.length);
-
-    //Section Instance
-    const cardsList = createSection(cardsApiRes);
-
-    //Show list of cards
-    cardsList.renderer();
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
+    console.log("userData",userData);
+    console.log("cardData",cardData);
+    //const cardsList = createSection(cardData);
+    cardsList.renderer(cardData);
+  }
+);
 
 
 //Popup Instances
@@ -97,15 +96,26 @@ const editProfilePopup = new PopupWithForm(editProfilePopupSelector, (data) => {
   editProfilePopup.close();
 });
 
-const addCardPopup = new PopupWithForm(addCardPopupSelector, (data) => {
-  //reset
-  const card = createCard({
-    name: data["card-title"],
-    link: data["card-link"],
+const addCardPopup = new PopupWithForm(addCardPopupSelector,
+  (data) => {
+    console.log("data",data);
+  api.addCard(data)
+  .then(res => {
+    console.log("rr",res);
+    console.log("dd",data);
+    const card = createCard({
+      name: data["card-title"],
+      link: data["card-link"],
+    });
+    cardsList.prependItem(card.generateCard());
   });
-  cardsList.prependItem(card.generateCard());
+
+
   addCardPopup.close();
-});
+}
+);
+
+const deleteCardPopup = new PopupWithSubmit(deleteCardPopupSelector);
 
 const imagePopup = new PopupWithImage(imagePopupSelector);
 

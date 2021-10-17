@@ -57,27 +57,48 @@ const createCard = (cardData) => {
     cardData,
     cardTemplate,
     userId,
-    //figure open popup
+    /*Figure open popup click event */
     () => {
       imagePopup.open(cardData.link, cardData.name);
     },
-    //confirm delete card popup
+    /*Confirm delete card popup click event */
     () => {
-      console.log("in index",cardData);
+      console.log("in index", cardData);
       deleteCardPopup.open();
 
       //take function
       deleteCardPopup.setAction(() => {
         //submit model
-        api.deleteCard(cardData._id)
-        .then((res) => {
-          console.log("card is delete", res);
-          console.log("card is Card delete", cardData._id);
+        api.deleteCard(cardData._id).then((res) => {
+          //console.log("card is delete", res);
+          //console.log("card is Card delete", cardData._id);
           //remove it from dom
           card.removeCard();
           deleteCardPopup.close();
         });
       });
+    },
+    /** Like icon click event **/
+    () => {
+      //console.log("in index LIKE DISLIKE", cardData);
+      const isAlreadyLiked = card.isLiked();
+
+      if(isAlreadyLiked) {
+        api.dislikeCard(cardData._id).then((res) => {
+          console.log("res Dislike index",res);
+          //add active like it from dom
+          card.likeCard(res.likes);
+        })
+      }
+
+      else {
+      //if it's my first click on like icon fill the like
+      api.likeCard(cardData._id).then((res) => {
+        console.log("res like index");
+        //add active like it from dom
+        card.likeCard(res.likes);
+      });
+      }
     }
   );
   return card;
@@ -110,7 +131,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
       avatar: userData["avatar"],
     });
 
-    console.log("userData",userData);
+    console.log("userData", userData);
     console.log("cardData", cardData);
     cardsList.renderer(cardData);
   }
@@ -143,7 +164,7 @@ const addCardPopup = new PopupWithForm(
         name: data["card-title"],
         link: data["card-link"],
         id: res._id,
-        owner: res.owner
+        owner: res.owner,
       });
       cardsList.prependItem(card.generateCard());
     });

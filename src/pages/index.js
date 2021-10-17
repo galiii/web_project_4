@@ -56,6 +56,7 @@ const createCard = (cardData) => {
   const card = new Card(
     cardData,
     cardTemplate,
+    userId,
     //figure open popup
     () => {
       imagePopup.open(cardData.link, cardData.name);
@@ -74,6 +75,7 @@ const createCard = (cardData) => {
           console.log("card is Card delete", cardData._id);
           //remove it from dom
           card.removeCard();
+          deleteCardPopup.close();
         });
       });
     }
@@ -101,16 +103,15 @@ const cardsList = createSection(); //for reload
 Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
   ([userData, cardData]) => {
     userId = userData._id;
-
+    console.log("user id owner", userId);
     userInfo.setUserInfo({
       name: userData["name"],
       job: userData["about"],
       avatar: userData["avatar"],
     });
 
-    //console.log("userData",userData);
+    console.log("userData",userData);
     console.log("cardData", cardData);
-    //const cardsList = createSection(cardData);
     cardsList.renderer(cardData);
   }
 );
@@ -136,12 +137,13 @@ const addCardPopup = new PopupWithForm(
   (data) => {
     console.log("data", data);
     api.addCard(data).then((res) => {
-      console.log("res", res._id);
+      console.log("res", res);
       console.log("data", data);
       const card = createCard({
         name: data["card-title"],
         link: data["card-link"],
-        id: res._id
+        id: res._id,
+        owner: res.owner
       });
       cardsList.prependItem(card.generateCard());
     });

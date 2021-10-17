@@ -1,15 +1,19 @@
+import { userJobElement } from "../utils/constants";
+
 export default class Card {
-  constructor(cardData, cardSelector, handleCardClick, handleCardDelete) {
+  constructor(cardData, cardSelector,userId, handleCardClick, handleCardDelete) {
     //private
     this._name = cardData.name;
     this._link = cardData.link;
-    //console.log("id",cardData._id);
     this._id = cardData._id;
-    //console.log("id", this._id);
+    this._ownerId = cardData.owner._id;
+    //console.log("Owner ID",  this._ownerId);
     this._cardSelector = cardSelector;
     this._cardTemplate = document
       .querySelector(this._cardSelector) //#card-template
       .content.querySelector(".card");
+    this.userId = userId;
+    //console.log("USER id",  this.userId);
     this._handleCardClick = handleCardClick;
     this._handleCardDelete = handleCardDelete; //function from the outside
   }
@@ -27,17 +31,12 @@ export default class Card {
 
   /** Delete method click Event  **/
   _deleteCard = (deleteButtonElement) => {
-    //console.log("delete id in card",this._id);
     deleteButtonElement.addEventListener("click", () => { this._handleCardDelete(this._id)});
-
   };
 
   removeCard = () => {
       const card = this._cardElement.querySelector(".card__delete").closest(".card");
       card.remove();
-    //this._cardSelector.remove();
-    //this._cardSelector= null;
-
   }
 
   /** Like Property click Event **/
@@ -72,6 +71,11 @@ export default class Card {
 
     this._imagePropertySetup(imageElement); // Image Property setup
     title.textContent = this._name; // Title Property setup
+
+    if(this.userId !== this._ownerId) {
+      deleteButton.style.display = 'none';
+    }
+
 
     return this._cardElement;
   };

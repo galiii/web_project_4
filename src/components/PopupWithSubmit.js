@@ -13,7 +13,7 @@ class PopupWithSubmit extends Popup {
       evt.preventDefault();
       this._submitHandler();
 
-      this.close();
+      //this.close();
     });
 
 

@@ -1,9 +1,4 @@
-const customFetch = (url, headers) =>  fetch(url, headers)
-    .then((res) =>
-      res.ok ? res.json() : Promise.reject(`Error: ${res.status}`)
-    )
-    .catch(console.error);
-
+import {customFetch} from "../utils/customFetch.js"
 
 class Api {
   constructor({ baseUrl, headers }) {
@@ -12,9 +7,6 @@ class Api {
     this._headers = headers;
   }
 
-  test() {
-    console.log(`url: ${this._baseUrl} and token ${this._headers} `);
-  }
 
   getAllInformation = () => {
     return Promise.all([this.getUserInfo(), this.getCardList()]);
@@ -50,6 +42,7 @@ class Api {
 
   // Deleting a Card
   deleteCard = (cardId) => {
+    console.log("api",cardId)
     return customFetch(`${this._baseUrl}/cards/${cardId}`, {
       headers: this._headers,
       method: "DELETE",

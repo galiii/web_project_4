@@ -34,7 +34,6 @@ import FormValidator from "../components/FormValidator.js";
 import UserInfo from "../components/UserInfo.js";
 import { api } from "../components/Api.js";
 
-
 let userId; //undefined
 
 //User Instance
@@ -44,15 +43,45 @@ const userInfo = new UserInfo(
   imageProfileUserSelector
 );
 
+//Popup instance in the Card
+const imagePopup = new PopupWithImage(imagePopupSelector);
+const deleteCardPopup = new PopupWithSubmit(deleteCardPopupSelector);
+
+//Set popup inside cards
+imagePopup.setEventListeners();
+deleteCardPopup.setEventListeners();
+
 //Card Instance
 const createCard = (cardData) => {
-  const card = new Card(cardData, cardTemplate, () => {
-    imagePopup.open(cardData.link, cardData.name);
-  });
+  const card = new Card(
+    cardData,
+    cardTemplate,
+    //figure open popup
+    () => {
+      imagePopup.open(cardData.link, cardData.name);
+    },
+    //confirm delete card popup
+    () => {
+      console.log("in index",cardData);
+      deleteCardPopup.open();
+
+      //take function
+      deleteCardPopup.setAction(() => {
+        //submit model
+        api.deleteCard(cardData._id)
+        .then((res) => {
+          console.log("card is delete", res);
+          console.log("card is Card delete", cardData._id);
+          //remove it from dom
+          card.removeCard();
+        });
+      });
+    }
+  );
   return card;
 };
 
- //Section Instance
+//Section Instance
 const createSection = () => {
   const cardList = new Section(
     {
@@ -69,7 +98,6 @@ const createSection = () => {
 
 const cardsList = createSection(); //for reload
 
-
 Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
   ([userData, cardData]) => {
     userId = userData._id;
@@ -80,13 +108,19 @@ Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
       avatar: userData["avatar"],
     });
 
-    console.log("userData",userData);
-    console.log("cardData",cardData);
+    //console.log("userData",userData);
+    console.log("cardData", cardData);
     //const cardsList = createSection(cardData);
     cardsList.renderer(cardData);
   }
 );
 
+//FormValidator Instances
+const editProfileFormValidator = new FormValidator(formEditProfile);
+const addCardFormValidator = new FormValidator(formAddCard);
+
+editProfileFormValidator.enableValidation();
+addCardFormValidator.enableValidation();
 
 //Popup Instances
 const editProfilePopup = new PopupWithForm(editProfilePopupSelector, (data) => {
@@ -96,40 +130,28 @@ const editProfilePopup = new PopupWithForm(editProfilePopupSelector, (data) => {
   editProfilePopup.close();
 });
 
-const addCardPopup = new PopupWithForm(addCardPopupSelector,
+const addCardPopup = new PopupWithForm(
+  addCardPopupSelector,
+  //submit new card
   (data) => {
-    console.log("data",data);
-  api.addCard(data)
-  .then(res => {
-    console.log("rr",res);
-    console.log("dd",data);
-    const card = createCard({
-      name: data["card-title"],
-      link: data["card-link"],
+    console.log("data", data);
+    api.addCard(data).then((res) => {
+      console.log("res", res._id);
+      console.log("data", data);
+      const card = createCard({
+        name: data["card-title"],
+        link: data["card-link"],
+        id: res._id
+      });
+      cardsList.prependItem(card.generateCard());
     });
-    cardsList.prependItem(card.generateCard());
-  });
-
-
-  addCardPopup.close();
-}
+    addCardPopup.close();
+  }
 );
-
-const deleteCardPopup = new PopupWithSubmit(deleteCardPopupSelector);
-
-const imagePopup = new PopupWithImage(imagePopupSelector);
 
 //Set Popup
 editProfilePopup.setEventListeners();
 addCardPopup.setEventListeners();
-imagePopup.setEventListeners();
-
-//FormValidator Instances
-const editProfileFormValidator = new FormValidator(formEditProfile);
-const addCardFormValidator = new FormValidator(formAddCard);
-
-editProfileFormValidator.enableValidation();
-addCardFormValidator.enableValidation();
 
 // Event click
 editProfileButton.addEventListener("click", () => {

@@ -1,13 +1,17 @@
 export default class Card {
-  constructor(cardData, cardSelector, handleCardClick) {
+  constructor(cardData, cardSelector, handleCardClick, handleCardDelete) {
     //private
     this._name = cardData.name;
     this._link = cardData.link;
+    //console.log("id",cardData._id);
+    this._id = cardData._id;
+    //console.log("id", this._id);
     this._cardSelector = cardSelector;
     this._cardTemplate = document
       .querySelector(this._cardSelector) //#card-template
       .content.querySelector(".card");
     this._handleCardClick = handleCardClick;
+    this._handleCardDelete = handleCardDelete; //function from the outside
   }
 
   //privates methods
@@ -23,11 +27,18 @@ export default class Card {
 
   /** Delete method click Event  **/
   _deleteCard = (deleteButtonElement) => {
-    deleteButtonElement.addEventListener("click", () => {
-      const card = deleteButtonElement.closest(".card");
-      card.remove();
-    });
+    //console.log("delete id in card",this._id);
+    deleteButtonElement.addEventListener("click", () => { this._handleCardDelete(this._id)});
+
   };
+
+  removeCard = () => {
+      const card = this._cardElement.querySelector(".card__delete").closest(".card");
+      card.remove();
+    //this._cardSelector.remove();
+    //this._cardSelector= null;
+
+  }
 
   /** Like Property click Event **/
   _createLike = (likeElement) => {
@@ -38,12 +49,11 @@ export default class Card {
 
   /** Image Property click Event **/
   _createFigurePopup = (imageElement) => {
-    //console.log("hello 123");
     imageElement.addEventListener("click", this._handleCardClick);
   };
 
-  _setEventListeners = (cardElement, imageElement) => {
-    const deleteButton = cardElement.querySelector(".card__delete");
+  _setEventListeners = (cardElement, imageElement, deleteButton) => {
+    //const deleteButton = cardElement.querySelector(".card__delete");
     const like = cardElement.querySelector(".card__like");
 
     this._deleteCard(deleteButton); //Delete Property click Event
@@ -55,8 +65,8 @@ export default class Card {
   generateCard = () => {
     this._cardElement = this._getCardTemplate();
     const imageElement = this._cardElement.querySelector(".card__image");
-
-    this._setEventListeners(this._cardElement, imageElement);
+    const deleteButton = this._cardElement.querySelector(".card__delete");
+    this._setEventListeners(this._cardElement, imageElement, deleteButton);
 
     const title = this._cardElement.querySelector(".card__title");
 

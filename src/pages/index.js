@@ -82,8 +82,9 @@ function createCard(cardData) {
       deleteCardPopup.setAction(() => {
         //submit model
         api.deleteCard(cardData._id).then((res) => {
+          //console.log(cardData)
           //console.log("card is delete", res);
-          //console.log("card is Card delete", cardData._id);
+          console.log("card is Card delete", cardData);
           //remove it from dom
           card.removeCard();
           deleteCardPopup.close();
@@ -92,7 +93,7 @@ function createCard(cardData) {
     },
     /** Like icon click event **/
     () => {
-      //console.log("in index LIKE DISLIKE", cardData);
+      console.log("in index LIKE/DISLIKE", card);
       const isAlreadyLiked = card.isLiked();
 
       if (isAlreadyLiked) {
@@ -167,8 +168,6 @@ const updateImageProfilePopup = new PopupWithForm(
         avatar: data.avatar,
       });
     });
-    //console.log("edit", res);
-    //console.log("data edit", data);
     updateImageProfilePopup.close();
   }
 );
@@ -177,14 +176,12 @@ const addCardPopup = new PopupWithForm(
   addCardPopupSelector,
   //submit new card
   (data) => {
-    //console.log("data", data);
     api.addCard(data).then((res) => {
-      //console.log("res in add card", res);
-      //console.log("data", data);
+      console.log("res in add card", res);
       const card = createCard({
         name: data["card-title"],
         link: data["card-link"],
-        id: res._id,
+        _id: res._id, //_id
         owner: res.owner,
         likes: res.likes,
       });
@@ -215,7 +212,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
     });
 
     console.log("userData", userData);
-    //console.log("cardData", cardData);
     cardsList.renderer(cardData);
   }
 );

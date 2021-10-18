@@ -43,16 +43,17 @@ const userInfo = new UserInfo(
   imageProfileUserSelector
 );
 
-//Popup instance in the Card
-const imagePopup = new PopupWithImage(imagePopupSelector);
-const deleteCardPopup = new PopupWithSubmit(deleteCardPopupSelector);
 
-//Set popup inside cards
-imagePopup.setEventListeners();
-deleteCardPopup.setEventListeners();
+
+//FormValidator Instances
+const editProfileFormValidator = new FormValidator(formEditProfile);
+const addCardFormValidator = new FormValidator(formAddCard);
+
+editProfileFormValidator.enableValidation();
+addCardFormValidator.enableValidation();
 
 //Card Instance
-const createCard = (cardData) => {
+function createCard(cardData){
   const card = new Card(
     cardData,
     cardTemplate,
@@ -83,21 +84,19 @@ const createCard = (cardData) => {
       //console.log("in index LIKE DISLIKE", cardData);
       const isAlreadyLiked = card.isLiked();
 
-      if(isAlreadyLiked) {
+      if (isAlreadyLiked) {
         api.dislikeCard(cardData._id).then((res) => {
-          console.log("res Dislike index",res);
+          console.log("res Dislike index", res);
           //add active like it from dom
           card.likeCard(res.likes);
-        })
-      }
-
-      else {
-      //if it's my first click on like icon fill the like
-      api.likeCard(cardData._id).then((res) => {
-        console.log("res like index");
-        //add active like it from dom
-        card.likeCard(res.likes);
-      });
+        });
+      } else {
+        //if it's my first click on like icon fill the like
+        api.likeCard(cardData._id).then((res) => {
+          console.log("res like index");
+          //add active like it from dom
+          card.likeCard(res.likes);
+        });
       }
     }
   );
@@ -105,7 +104,7 @@ const createCard = (cardData) => {
 };
 
 //Section Instance
-const createSection = () => {
+function createSection(){
   const cardList = new Section(
     {
       //items: cardsData,
@@ -118,6 +117,54 @@ const createSection = () => {
   );
   return cardList;
 };
+
+
+
+//Popup instance in the Card
+const imagePopup = new PopupWithImage(imagePopupSelector);
+const deleteCardPopup = new PopupWithSubmit(deleteCardPopupSelector);
+
+//Popup Instances
+const editProfilePopup = new PopupWithForm(editProfilePopupSelector, (data) => {
+  nameProfileEditInput.value = data.name.textContent;
+  jobProfileEditInput.value = data.job.textContent;
+
+
+
+  userInfo.setUserInfo({ name: data.name, job: data.job });
+
+
+  editProfilePopup.close();
+});
+
+const addCardPopup = new PopupWithForm(
+  addCardPopupSelector,
+  //submit new card
+  (data) => {
+    console.log("data", data);
+    api.addCard(data).then((res) => {
+      console.log("res in add card", res);
+      //console.log("data", data);
+      const card = createCard({
+        name: data["card-title"],
+        link: data["card-link"],
+        id: res._id,
+        owner: res.owner,
+        likes: res.likes
+      });
+      cardsList.prependItem(card.generateCard());
+    });
+    addCardPopup.close();
+  }
+);
+
+//Set popup inside cards
+imagePopup.setEventListeners();
+deleteCardPopup.setEventListeners();
+//Set Popup
+editProfilePopup.setEventListeners();
+addCardPopup.setEventListeners();
+
 
 const cardsList = createSection(); //for reload
 
@@ -137,44 +184,10 @@ Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
   }
 );
 
-//FormValidator Instances
-const editProfileFormValidator = new FormValidator(formEditProfile);
-const addCardFormValidator = new FormValidator(formAddCard);
 
-editProfileFormValidator.enableValidation();
-addCardFormValidator.enableValidation();
 
-//Popup Instances
-const editProfilePopup = new PopupWithForm(editProfilePopupSelector, (data) => {
-  nameProfileEditInput.value = data.name.textContent;
-  jobProfileEditInput.value = data.job.textContent;
-  userInfo.setUserInfo({ name: data.name, job: data.job });
-  editProfilePopup.close();
-});
 
-const addCardPopup = new PopupWithForm(
-  addCardPopupSelector,
-  //submit new card
-  (data) => {
-    console.log("data", data);
-    api.addCard(data).then((res) => {
-      console.log("res", res);
-      console.log("data", data);
-      const card = createCard({
-        name: data["card-title"],
-        link: data["card-link"],
-        id: res._id,
-        owner: res.owner,
-      });
-      cardsList.prependItem(card.generateCard());
-    });
-    addCardPopup.close();
-  }
-);
 
-//Set Popup
-editProfilePopup.setEventListeners();
-addCardPopup.setEventListeners();
 
 // Event click
 editProfileButton.addEventListener("click", () => {

@@ -55,8 +55,12 @@ export default class Card {
 
   /** Like Property click Event **/
   _createLike = (likeElement) => {
-    this._cardElement.querySelector(".card__likes-count").textContent =
+    console.log( '_createLike',this._likes)
+
+      this._cardElement.querySelector(".card__likes-count").textContent =
       this._likes.length;
+
+
 
     if(this.isLiked()){
       //console.log("hello");
@@ -104,10 +108,14 @@ export default class Card {
 
     /** Public method for add like card card **/
     likeCard = (newLikes) => {
-      //console.log("check",newLikes);
+      console.log("likeeee",newLikes);
       this._likes = newLikes;
-      this._cardElement.querySelector(".card__likes-count").textContent =
-      this._likes.length ;
+
+
+        this._cardElement.querySelector(".card__likes-count").textContent =
+        this._likes.length ;//length
+
+
 
       const likeElement =  this._cardElement.querySelector(".card__like");
       likeElement.classList.toggle("card__like_active");

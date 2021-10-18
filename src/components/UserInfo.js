@@ -14,6 +14,8 @@ export default class UserInfo {
     return { name, job, avatar };
   };
 
+
+
   setUserInfo = (data) => {
     const { name, job } = data;
    const avatar = data.avatar;

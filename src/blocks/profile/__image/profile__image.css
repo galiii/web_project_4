@@ -10,8 +10,13 @@
   /*background-size: 50% 50%;*/
   /*background-repeat: no-repeat;*/
   /*border: 1px solid white;*/
-  /*margin: 0 18px 0 0;
-  border-radius: 50%;*/
+  margin: 0 18px 0 0;
+  /*border-radius: 50%;*/
+}
+
+.profile__image:hover {
+  cursor: pointer;
+  opacity: .8;
 }
 
 @media screen and (max-width: 540px) {

@@ -10,18 +10,29 @@ import {
   nameProfileUserSelector, //.profile__name
   jobProfileUserSelector, //.profile__job
   imageProfileUserSelector, // .profile__image
+  //popup submit
   editProfilePopupSelector, //.popup_type_edit-profile
-  addCardPopupSelector, //.popup_type_add-card
+  updateUserInfoPopupSelector, //.popup_type_update-image-profile
   deleteCardPopupSelector, // .popup_type_delete-card
+  addCardPopupSelector, //.popup_type_add-card
+  //popup
   imagePopupSelector, //.popup_type_image
+  //input value
   nameProfileEditInput, //.form__input_type_name query selector
   jobProfileEditInput, //.form__input_type_job query selector
+  profileImageInput, //.form__input_type_avatar query selector
+  //button
   editProfileButton, // .profile__edit-button query selector
   addCardButton, // .profile__add-button query selector
+  updateImageProfileButton, // .profile__update-image query selector
+  //model
   editProfileModel, //.popup_type_edit-profile query selector
   addCardModel, // .popup_type_add-card query selector
+  updateImageModel, //.popup_type_update-image-profile query selector
+  //form
   formEditProfile, //.form query selector
   formAddCard, //.form query selector
+  formUpdateImage, //.form query selector
 } from "../utils/constants.js";
 
 //components
@@ -43,17 +54,17 @@ const userInfo = new UserInfo(
   imageProfileUserSelector
 );
 
-
-
 //FormValidator Instances
 const editProfileFormValidator = new FormValidator(formEditProfile);
 const addCardFormValidator = new FormValidator(formAddCard);
+const updateImageFormValidator = new FormValidator(formUpdateImage);
 
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
+updateImageFormValidator.enableValidation();
 
 //Card Instance
-function createCard(cardData){
+function createCard(cardData) {
   const card = new Card(
     cardData,
     cardTemplate,
@@ -86,14 +97,16 @@ function createCard(cardData){
 
       if (isAlreadyLiked) {
         api.dislikeCard(cardData._id).then((res) => {
-          console.log("res Dislike index", res);
+          //console.log("res Dislike index", res);
           //add active like it from dom
           card.likeCard(res.likes);
         });
       } else {
         //if it's my first click on like icon fill the like
         api.likeCard(cardData._id).then((res) => {
-          console.log("res like index");
+          //res = cardData;
+          //console.log("res like index", res);
+          //console.log("DATA", cardData);
           //add active like it from dom
           card.likeCard(res.likes);
         });
@@ -101,10 +114,10 @@ function createCard(cardData){
     }
   );
   return card;
-};
+}
 
 //Section Instance
-function createSection(){
+function createSection() {
   const cardList = new Section(
     {
       //items: cardsData,
@@ -116,9 +129,7 @@ function createSection(){
     cardListSelector
   );
   return cardList;
-};
-
-
+}
 
 //Popup instance in the Card
 const imagePopup = new PopupWithImage(imagePopupSelector);
@@ -129,28 +140,53 @@ const editProfilePopup = new PopupWithForm(editProfilePopupSelector, (data) => {
   nameProfileEditInput.value = data.name.textContent;
   jobProfileEditInput.value = data.job.textContent;
 
-
-
-  userInfo.setUserInfo({ name: data.name, job: data.job });
-
+  api.editProfileUserInfo(data).then((res) => {
+    //console.log("edit", res);
+    //console.log("data edit", data);
+    userInfo.setUserInfo({
+      name: data.name,
+      job: data.job,
+      avatar: res.avatar,
+    });
+  });
 
   editProfilePopup.close();
 });
+
+const updateImageProfilePopup = new PopupWithForm(
+  updateUserInfoPopupSelector,
+  (data) => {
+    console.log("line 159",data);
+
+    api.updateUserImage(data).then((res) => {
+      console.log("image", res);
+      console.log("line 163",data);
+      userInfo.setUserInfo({
+        name: res.name,
+        job: res.job,
+        avatar: data.avatar,
+      });
+    });
+    //console.log("edit", res);
+    //console.log("data edit", data);
+    updateImageProfilePopup.close();
+  }
+);
 
 const addCardPopup = new PopupWithForm(
   addCardPopupSelector,
   //submit new card
   (data) => {
-    console.log("data", data);
+    //console.log("data", data);
     api.addCard(data).then((res) => {
-      console.log("res in add card", res);
+      //console.log("res in add card", res);
       //console.log("data", data);
       const card = createCard({
         name: data["card-title"],
         link: data["card-link"],
         id: res._id,
         owner: res.owner,
-        likes: res.likes
+        likes: res.likes,
       });
       cardsList.prependItem(card.generateCard());
     });
@@ -164,7 +200,7 @@ deleteCardPopup.setEventListeners();
 //Set Popup
 editProfilePopup.setEventListeners();
 addCardPopup.setEventListeners();
-
+updateImageProfilePopup.setEventListeners();
 
 const cardsList = createSection(); //for reload
 
@@ -179,15 +215,10 @@ Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
     });
 
     console.log("userData", userData);
-    console.log("cardData", cardData);
+    //console.log("cardData", cardData);
     cardsList.renderer(cardData);
   }
 );
-
-
-
-
-
 
 // Event click
 editProfileButton.addEventListener("click", () => {
@@ -202,4 +233,12 @@ editProfileButton.addEventListener("click", () => {
 addCardButton.addEventListener("click", () => {
   addCardFormValidator.resettingFormValidation(addCardModel);
   addCardPopup.open();
+});
+
+updateImageProfileButton.addEventListener("click", () => {
+  updateImageFormValidator.resettingFormValidation(updateImageModel);
+  const data = userInfo.getUserInfo();
+  const { avatar } = data;
+  profileImageInput.value = avatar;
+  updateImageProfilePopup.open();
 });

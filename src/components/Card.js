@@ -45,28 +45,22 @@ export default class Card {
       deleteButtonElement.style.display = "none";
     }
 
-
     deleteButtonElement.addEventListener("click", () => {
       this._handleCardDelete(this._id);
     });
   };
 
-
-
   /** Like Property click Event **/
   _createLike = (likeElement) => {
-    console.log( '_createLike',this._likes)
+    //console.log("_createLike", this._likes);
 
-      this._cardElement.querySelector(".card__likes-count").textContent =
+    this._cardElement.querySelector(".card__likes-count").textContent =
       this._likes.length;
 
-
-
-    if(this.isLiked()){
+    if (this.isLiked()) {
       //console.log("hello");
       this.likeCard(this._likes);
     }
-
 
     likeElement.addEventListener("click", (evt) => {
       //  evt.target.classList.toggle("card__like_active");
@@ -88,8 +82,6 @@ export default class Card {
     this._createFigurePopup(imageElement); ///Image Property click
   };
 
-
-
   /** Public method for delete card **/
   removeCard = () => {
     const card = this._cardElement
@@ -104,23 +96,19 @@ export default class Card {
 
   isLiked = () => {
     return this._likes.some((person) => person._id === this._userId);
-  }
+  };
 
-    /** Public method for add like card card **/
-    likeCard = (newLikes) => {
-      console.log("likeeee",newLikes);
-      this._likes = newLikes;
+  /** Public method for add like card card **/
+  likeCard = (newLikes) => {
+    //console.log("likeeee", newLikes);
+    this._likes = newLikes;
 
+    this._cardElement.querySelector(".card__likes-count").textContent =
+      this._likes.length; //length
 
-        this._cardElement.querySelector(".card__likes-count").textContent =
-        this._likes.length ;//length
-
-
-
-      const likeElement =  this._cardElement.querySelector(".card__like");
-      likeElement.classList.toggle("card__like_active");
-    };
-
+    const likeElement = this._cardElement.querySelector(".card__like");
+    likeElement.classList.toggle("card__like_active");
+  };
 
   generateCard = () => {
     this._cardElement = this._getCardTemplate();
@@ -135,7 +123,4 @@ export default class Card {
 
     return this._cardElement;
   };
-
-
-
 }

@@ -1,4 +1,8 @@
-export const figureModel = document.querySelector(".popup_type_image"); // Popuos Items
-export const img = figureModel.querySelector(".popup__image");
-export const caption = figureModel.querySelector(".popup__caption");
+export const renderLoading = (isLoading,popup, strApprove,formSelector) => {
+  const buttonSubmit = popup.querySelector(formSelector);
+  buttonSubmit.textContent = isLoading ? "Saving..." : strApprove;
+  return buttonSubmit.textContent;
+}
+
+
 

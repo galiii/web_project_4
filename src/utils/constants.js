@@ -8,6 +8,12 @@ export const settings = {
   errorClass: "form__input_error",
 };
 
+export const buttonsSettings = {
+  loading: "Saving ...",
+  edit: "Save",
+  create: "Create",
+};
+
 //Card Template
 export const cardTemplate = "#card-template";
 

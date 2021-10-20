@@ -1,4 +1,4 @@
-import {customFetch} from "../utils/customFetch.js"
+import {customFetch} from "../utils/utils.js"
 
 class Api {
   constructor({ baseUrl, headers }) {
@@ -6,11 +6,6 @@ class Api {
     this._baseUrl = baseUrl;
     this._headers = headers;
   }
-
-
-  getAllInformation = () => {
-    return Promise.all([this.getUserInfo(), this.getCardList()]);
-  };
 
   // Loading User Information from the Server
   getUserInfo = () => {
@@ -26,7 +21,7 @@ class Api {
     });
   };
 
-  // other methods for working with the API
+
 
   // Adding a New Card
   addCard = (data) => {

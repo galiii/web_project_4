@@ -1,5 +1,3 @@
-import { userJobElement } from "../utils/constants";
-
 export default class Card {
   constructor(
     cardData,
@@ -10,18 +8,17 @@ export default class Card {
     handleLikeIcon
   ) {
     //private
+    //console.log(cardData);
     this._name = cardData.name;
     this._link = cardData.link;
     this._id = cardData._id;
     this._ownerId = cardData.owner._id;
-    this._likes = cardData.likes; ////inside of the cardData there is likes [] array
-    //console.log("LIKES", this._likes);
+    this._likes = cardData.likes; //inside of the cardData there is likes [] array
     this._cardSelector = cardSelector;
     this._cardTemplate = document
       .querySelector(this._cardSelector) //#card-template
       .content.querySelector(".card");
     this._userId = userId;
-    //console.log("USER id",  this.userId);
     this._handleCardClick = handleCardClick;
     this._handleCardDelete = handleCardDelete; //function from the outside
     this._handleLikeIcon = handleLikeIcon;
@@ -52,18 +49,14 @@ export default class Card {
 
   /** Like Property click Event **/
   _createLike = (likeElement) => {
-    //console.log("_createLike", this._likes);
-
     this._cardElement.querySelector(".card__likes-count").textContent =
       this._likes.length;
 
     if (this.isLiked()) {
-      //console.log("hello");
       this.likeCard(this._likes);
     }
 
     likeElement.addEventListener("click", (evt) => {
-      //  evt.target.classList.toggle("card__like_active");
       this._handleLikeIcon(this._id);
     });
   };
@@ -90,17 +83,12 @@ export default class Card {
     card.remove();
   };
 
-  /***
-   *
-   */
-
   isLiked = () => {
     return this._likes.some((person) => person._id === this._userId);
   };
 
   /** Public method for add like card card **/
   likeCard = (newLikes) => {
-    //console.log("likeeee", newLikes);
     this._likes = newLikes;
 
     this._cardElement.querySelector(".card__likes-count").textContent =

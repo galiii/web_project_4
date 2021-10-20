@@ -10,18 +10,14 @@
   /*right: 0;*/
   left: 0;
   bottom: 0;
+  cursor: pointer;
   /*top: 0;*/
 }
 
 .profile__update-image:hover {
-  /*height: 26px;
-  width: 26px;*/
   opacity: 1;
-  transition: opacity 0.2s ease-in-out;
-  background: rgba(179, 112, 212, 0.8) url(../../../images/logos/Vector.svg)
-    no-repeat center center;
-  -webkit-transition: opacity 0.2s ease-in-out;
-  -moz-transition: opacity 0.2s ease-in-out;
-  -ms-transition: opacity 0.2s ease-in-out;
-  -o-transition: opacity 0.2s ease-in-out;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-image: url(../../../images/logos/edit.svg);
+  background-repeat: no-repeat;
+  background-position: center center;
 }

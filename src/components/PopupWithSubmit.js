@@ -1,6 +1,6 @@
 import Popup from "./Popup.js";
 
-class PopupWithSubmit extends Popup {
+export default class PopupWithSubmit extends Popup {
   //take action function and replace Excited function
   setAction = (action)=> {
     this._submitHandler = action;
@@ -15,9 +15,7 @@ class PopupWithSubmit extends Popup {
 
       //this.close();
     });
-
-
   }
 }
 
-export default PopupWithSubmit;
+

@@ -67,35 +67,41 @@ function createCard(cardData) {
     },
     // Confirm delete card popup click event
     () => {
-      console.log("in index", cardData);
       deleteCardPopup.open();
 
       deleteCardPopup.setAction(() => {
         //submit model
-        api.deleteCard(cardData._id).then((res) => {
-          console.log("card is Card delete", cardData);
-          //remove it from dom
-          card.removeCard();
-          deleteCardPopup.close();
-        });
+        api
+          .deleteCard(cardData._id)
+          .then((res) => {
+            //remove it from dom
+            card.removeCard();
+            deleteCardPopup.close();
+          })
+          .catch(console.error);
       });
     },
     // Like icon click event
     () => {
-      console.log("in index LIKE/DISLIKE", card);
       const isAlreadyLiked = card.isLiked();
 
       if (isAlreadyLiked) {
-        api.dislikeCard(cardData._id).then((res) => {
-          //add active like it from dom
-          card.likeCard(res.likes);
-        });
+        api
+          .dislikeCard(cardData._id)
+          .then((res) => {
+            //add active like it from dom
+            card.likeCard(res.likes);
+          })
+          .catch(console.error);
       } else {
         //if it's my first click on like icon fill the like
-        api.likeCard(cardData._id).then((res) => {
-          //add active like it from dom
-          card.likeCard(res.likes);
-        });
+        api
+          .likeCard(cardData._id)
+          .then((res) => {
+            //add active like it from dom
+            card.likeCard(res.likes);
+          })
+          .catch(console.error);
       }
     }
   );
@@ -120,19 +126,17 @@ function createSection() {
 const cardsList = createSection(); //for reload
 //cardsList.renderer(initialCards); //for the start offline data
 
-Promise.all([api.getUserInfo(), api.getInitialCards()]).then(
-  ([userData, cardData]) => {
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cardData]) => {
     userId = userData._id;
-    //console.log("user id owner", userId);
     userInfo.setUserInfo({
       name: userData["name"],
       job: userData["about"],
       avatar: userData["avatar"],
     });
-    //console.log("userData", userData);
     cardsList.renderer(cardData);
-  }
-);
+  })
+  .catch(console.error);
 
 //FormValidator Instances
 const editProfileFormValidator = new FormValidator(formEditProfile);
@@ -155,7 +159,6 @@ const editProfilePopup = new PopupWithForm(
     api
       .editProfileUserInfo(data)
       .then((res) => {
-        console.log("res", res);
         userInfo.setUserInfo({
           name: res.name, //data.name
           job: res.about, //data.job
@@ -164,12 +167,9 @@ const editProfilePopup = new PopupWithForm(
         editProfilePopup.close();
       })
       .catch(console.error)
-      .finally(() => {
-        console.log("finally", data);
-        nameProfileEditInput.value = data.name;
-        jobProfileEditInput.value = data.job;
-        renderLoading(false, editProfileModel, buttonsSettings.edit);
-      });
+      .finally(() =>
+        renderLoading(false, editProfileModel, buttonsSettings.edit)
+      );
   }
 );
 const updateImageProfilePopup = new PopupWithForm(
@@ -180,7 +180,6 @@ const updateImageProfilePopup = new PopupWithForm(
     api
       .updateUserImage(data)
       .then((res) => {
-        //console.log("res",res);
         userInfo.setUserInfo({
           name: res.name,
           job: res.about,
@@ -189,24 +188,19 @@ const updateImageProfilePopup = new PopupWithForm(
         updateImageProfilePopup.close();
       })
       .catch(console.error)
-      .finally(() => {
-        console.log("this data", data);
-        //profileImageInput.value = data;
-        renderLoading(false, updateImageModel, buttonsSettings.edit);
-      });
+      .finally(() =>
+        renderLoading(false, updateImageModel, buttonsSettings.edit)
+      );
   }
 );
 const addCardPopup = new PopupWithForm(
   addCardPopupSelector,
   //Submit handle new card
   (data) => {
-    console.log("the data before try catch", data);
     renderLoading(true, addCardModel, buttonsSettings.loading);
     api
       .addCard(data)
       .then((res) => {
-        console.log("res in new card", res);
-        console.log("the data", data);
         const card = createCard({
           name: data["card-title"],
           link: data["card-link"],
@@ -218,10 +212,9 @@ const addCardPopup = new PopupWithForm(
         addCardPopup.close();
       })
       .catch(console.error)
-      .finally(() => {
-        console.log("finally in add new card");
-        renderLoading(false, addCardModel, buttonsSettings.create);
-      });
+      .finally(() =>
+        renderLoading(false, addCardModel, buttonsSettings.create)
+      );
   }
 );
 
@@ -254,6 +247,5 @@ updateImageProfileButton.addEventListener("click", () => {
   updateImageFormValidator.resettingFormValidation(updateImageModel);
   const data = userInfo.getUserInfo();
   const { avatar } = data;
-  profileImageInput.value = avatar;
   updateImageProfilePopup.open();
 });

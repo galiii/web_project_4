@@ -12,7 +12,9 @@ export default class PopupWithImage extends Popup {
 
     //Figcaption properties
     captionElement.ariaLabel = text;
-    captionElement.textContext = text;
+    captionElement.textContent = text;
+
+
     super.open();
   }
 }

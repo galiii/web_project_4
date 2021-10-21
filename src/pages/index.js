@@ -228,7 +228,7 @@ updateImageProfilePopup.setEventListeners();
 /*** Event click ***/
 // Edit
 editProfileButton.addEventListener("click", () => {
-  editProfileFormValidator.resettingFormValidation(editProfileModel);
+  editProfileFormValidator.resettingFormValidation();
   const data = userInfo.getUserInfo();
   const { name, job } = data;
   nameProfileEditInput.value = name;
@@ -238,13 +238,13 @@ editProfileButton.addEventListener("click", () => {
 
 // Add
 addCardButton.addEventListener("click", () => {
-  addCardFormValidator.resettingFormValidation(addCardModel);
+  addCardFormValidator.resettingFormValidation();
   addCardPopup.open();
 });
 
 // Update
 updateImageProfileButton.addEventListener("click", () => {
-  updateImageFormValidator.resettingFormValidation(updateImageModel);
+  updateImageFormValidator.resettingFormValidation();
   const data = userInfo.getUserInfo();
   const { avatar } = data;
   updateImageProfilePopup.open();
